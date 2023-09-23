@@ -17,9 +17,6 @@ class CreateUsersTable extends Migration
             $table->id();
             $table->string('name');
             $table->string('phone')->nullable();
-            $table->boolean('great_admin');
-            $table->unsignedBigInteger('job_id')->nullable();
-            // $table->foreign('job_id')->references('id')->on('jobs');
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');

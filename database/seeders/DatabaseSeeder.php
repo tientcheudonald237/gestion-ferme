@@ -16,14 +16,11 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        Job::factory(10)->create();
         \App\Models\User::factory()->create(
             [
-                'name' => 'ZAZ',
+                'name' => 'Donald Tientcheu',
                 'email' => 'tientcheudonald237@gmail.com',
                 'password' => Hash::make('nadege237'),
-                'great_admin' => true,
-                'job_id' => Job::first()->id,
             ]
         );
     }

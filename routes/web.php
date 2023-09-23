@@ -1,7 +1,11 @@
 <?php
 
+use App\Http\Controllers\Commercialisation\CommercialisationController;
+use App\Http\Controllers\Comptabilite\ComptabiliteController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\LoginController;
+use App\Http\Controllers\Personnel\PersonnelController;
+use App\Http\Controllers\Production\ProductionController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -24,4 +28,8 @@ Route::post('/login',[LoginController::class,'login'])->name('login');
 Route::middleware(['auth'])->group(function () {
     Route::get('/',[HomeController::class,'index'])->name('home');
     Route::post('/logout',[LoginController::class,'logout'])->name('logout');
+    Route::get('/commercialisation',[CommercialisationController::class, 'index'])->name('commercialisation.index');
+    Route::get('/comptabilite',[ComptabiliteController::class, 'index'])->name('comptabilite.index');
+    Route::get('/personnel',[PersonnelController::class, 'index'])->name('personnel.index');
+    Route::get('/production',[ProductionController::class, 'index'])->name('production.index');
 });

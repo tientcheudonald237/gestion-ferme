@@ -291,62 +291,7 @@
                     </li>
                 </ul>
             </nav>
-            <div class="main-sidebar sidebar-style-2">
-                <aside id="sidebar-wrapper">
-                    <div class="sidebar-brand">
-                        <a href="/"> <img alt="image" src="assets/img/logo.png" class="header-logo" />
-                            <span class="logo-name">Guemaleu</span>
-                        </a>
-                    </div>
-                    <ul class="sidebar-menu">
-                        <li class="menu-header">Main</li>
-                        <li class="dropdown active">
-                            <a href="" class="nav-link"><i
-                                    data-feather="monitor"></i><span>Dashboard</span></a>
-                        </li>
-                        <li class="dropdown">
-                            <a href="#" class="menu-toggle nav-link has-dropdown"><i
-                                    data-feather="briefcase"></i><span>Animaux</span></a>
-                            <ul class="dropdown-menu">
-                                <li><a class="nav-link" href="">Animaux</a>
-                                </li>
-                                <li><a class="nav-link" href="">Especes</a>
-                                </li>
-                                <li><a class="nav-link" href="">Races</a>
-                                </li>
-                            </ul>
-                        </li>
-                        <li class="dropdown">
-                            <a href="#" class="nav-link"><i
-                                    data-feather="briefcase"></i><span>Alimentation</span></a>
-                        </li>
-                        <li class="dropdown">
-                            <a href="#" class="menu-toggle nav-link has-dropdown"><i
-                                    data-feather="command"></i><span>Prophylaxie</span></a>
-                            <ul class="dropdown-menu">
-                                <li><a class="nav-link" href="chat.html">Suivie prophylaxie</a></li>
-                                <li><a class="nav-link" href="portfolio.html">Etablir un programme</a></li>
-                            </ul>
-                        </li>
-                        <li class="dropdown">
-                            <a href="#" class="menu-toggle nav-link has-dropdown"><i
-                                    data-feather="mail"></i><span>Programme Travail</span></a>
-                            <ul class="dropdown-menu">
-                                <li><a class="nav-link" href="email-inbox.html">programmes en cours</a></li>
-                                <li><a class="nav-link" href="email-compose.html">Etablir un programme</a></li>
-                            </ul>
-                        </li>
-                        <li class="dropdown">
-                            <a href="#" class="nav-link"><i
-                                    data-feather="briefcase"></i><span>Finances</span></a>
-                        </li>
-                        <li class="dropdown">
-                            <a href="#" class="nav-link"><i
-                                    data-feather="briefcase"></i><span>ventes</span></a>
-                        </li>
-                    </ul>
-                </aside>
-            </div>
+            @yield('sidebar')
             <!-- Main Content -->
             <div class="main-content">
                 {{-- yield content here  --}}
@@ -466,60 +411,6 @@
         </div>
     </div>
     <!-- Vertically Center -->
-    <!-- Calculator Modal -->
-    <div class="modal fade" id="calculator_id" tabindex="-1" role="dialog" aria-labelledby="calculator_idLabel"
-        aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="calculator_idLabel">{{ __('message._km_calculator_') }} </h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body" style="background: linear-gradient(45deg, #0a0a0a, #3a4452);">
-                    <div class="calculator">
-                        <input type="text" id="inputBox" placeholder="0" />
-                        <div>
-                            <button class="button operator st">AC</button>
-                            <button class="button operator st">DEL</button>
-                            <button class="button  st">%</button>
-                            <button class="button  st">/</button>
-                        </div>
-                        <div>
-                            <button class="button st">7</button>
-                            <button class="button st">8</button>
-                            <button class="button st">9</button>
-                            <button class="button operator">*</button>
-                        </div>
-                        <div>
-                            <button class="button st">4</button>
-                            <button class="button st">5</button>
-                            <button class="button st">6</button>
-                            <button class="button operator">-</button>
-                        </div>
-                        <div>
-                            <button class="button st">1</button>
-                            <button class="button st">2</button>
-                            <button class="button st">3</button>
-                            <button class="button operator">+</button>
-                        </div>
-
-                        <div>
-                            <button class="button st">00</button>
-                            <button class="button st">0</button>
-                            <button class="button st">.</button>
-                            <button class="button equalBtn st">=</button>
-                        </div>
-                    </div>
-                </div>
-                {{--                <div class="modal-footer"> --}}
-                {{--                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button> --}}
-                {{--                    <button type="button" class="btn btn-primary">Save changes</button> --}}
-                {{--                </div> --}}
-            </div>
-        </div>
-    </div>
     <!-- General JS Scripts -->
     <script src="{{ asset('assets/js/app.min.js') }}"></script>
     <script src="{{ asset('assets/js/PDF/pdf-lib.min.js') }}"></script>
@@ -605,22 +496,6 @@
         });
     </script> --}}
 
-    {!! Toastr::message() !!}
-    <script>
-        @if ($errors->any())
-            @foreach ($errors->all() as $error)
-                toastr.error('{{ $error }}', 'Error', {
-                    closeButtor: true,
-                    progressBar: true
-                });
-            @endforeach
-        @endif
-    </script>
-    <script>
-        function calculator() {
-            $('#calculator_id').modal('show');
-        }
-    </script>
     @yield('scripts')
     @stack('other-scripts')
 </body>

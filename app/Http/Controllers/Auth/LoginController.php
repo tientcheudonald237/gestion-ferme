@@ -1,10 +1,13 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Auth;
+
+use App\Http\Controllers\Controller;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use Brian2694\Toastr\Facades\Toastr;
+
 
 
 class LoginController extends Controller
@@ -13,7 +16,7 @@ class LoginController extends Controller
         return view('auth.login');
     }
 
-    public function login(Request $request): RedirectResponse
+    public function login(Request $request)
     {
         try{
             if(!Auth::check()){
@@ -21,7 +24,7 @@ class LoginController extends Controller
                     'email' => ['required', 'email'],
                     'password' => ['required'],
                 ]);
-        
+                
                 if (Auth::attempt($credentials)) {
                     $request->session()->regenerate();
                     Toastr::success("messages",'connexion reussit');
@@ -34,7 +37,6 @@ class LoginController extends Controller
             } 
         }catch (\Exception $e){
             Toastr::error("messages",'error');
-            // dd($e->getMessage());
         }          
     }
 
