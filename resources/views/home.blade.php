@@ -16,7 +16,7 @@
             </div>
             <div class="article-details">
               <div class="article-title">
-                <h2><a href="#">Gestion de la production</a></h2>
+                <h2><a href="{{ route('production.index') }}">Gestion de la production</a></h2>
               </div>
               <p>Gérez toutes les activités de production dans votre ferme, des soins et de l'alimentation des animaux jusqu'à la collecte et la transformation des produits.</p>
               <div class="article-cta">
@@ -36,7 +36,7 @@
             </div>
             <div class="article-details">
               <div class="article-title">
-                <h2><a href="#">Gestion de la commercialisation</a></h2>
+                <h2><a href="{{ route('commercialisation.index') }}">Gestion de la commercialisation</a></h2>
               </div>
               <p>Organisez la vente et la commercialisation de vos produits de ferme, en utilisant des stratégies efficaces pour atteindre vos clients.</p>
               <div class="article-cta">
@@ -56,7 +56,7 @@
             </div>
             <div class="article-details">
               <div class="article-title">
-                <h2><a href="#">Gestion du personnel</a></h2>
+                <h2><a href="{{ route('personnel.index') }}">Gestion du personnel</a></h2>
               </div>
               <p>Effectuez le suivi des activités des employés et de leur participation aux tâches quotidiennes de la ferme.</p>
               <div class="article-cta">
@@ -76,7 +76,7 @@
             </div>
             <div class="article-details">
               <div class="article-title">
-                <h2><a href="#">Gestion de la comptabilité</a></h2>
+                <h2><a href="{{ route('comptabilite.index') }}">Gestion de la comptabilité</a></h2>
               </div>
               <p>Suivez les dépenses, les revenus et les transactions financières de votre ferme pour une meilleure gestion financière.</p>
               <div class="article-cta">
