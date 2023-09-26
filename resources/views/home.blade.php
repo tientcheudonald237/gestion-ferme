@@ -1,4 +1,4 @@
-@extends('layouts.home')
+@endsection
 @section('styles')
 @endsection
 @section('content')

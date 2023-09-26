@@ -3,10 +3,11 @@
 use App\Http\Controllers\Commercialisation\CommercialisationController;
 use App\Http\Controllers\Comptabilite\ComptabiliteController;
 use App\Http\Controllers\HomeController;
-use App\Http\Controllers\LoginController;
+use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Personnel\PersonnelController;
 use App\Http\Controllers\Production\ProductionController;
 use Illuminate\Support\Facades\Route;
+
 
 /*
 |--------------------------------------------------------------------------
