@@ -1,3 +1,7 @@
+@php
+    $activeDropdown = 'index';
+    $activeLink = '';
+@endphp
 @extends('layouts.production')
 @section('styles')
 
