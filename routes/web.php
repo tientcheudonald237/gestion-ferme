@@ -3,7 +3,8 @@
 use App\Http\Controllers\Commercialisation\CommercialisationController;
 use App\Http\Controllers\Comptabilite\ComptabiliteController;
 use App\Http\Controllers\HomeController;
-use App\Http\Controllers\LoginController;
+use App\Http\Controllers\Auth\LoginController;
+use App\Http\Controllers\LangController;
 use App\Http\Controllers\Personnel\PersonnelController;
 use App\Http\Controllers\Production\ProductionController;
 use Illuminate\Support\Facades\Route;
@@ -33,3 +34,5 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/personnel',[PersonnelController::class, 'index'])->name('personnel.index');
     Route::get('/production',[ProductionController::class, 'index'])->name('production.index');
 });
+Route::get('lang/change', [LangController::class, 'change'])->name('changeLang');
+

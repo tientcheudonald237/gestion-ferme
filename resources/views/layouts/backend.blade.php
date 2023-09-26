@@ -106,37 +106,37 @@
             <nav class="navbar navbar-expand-lg main-navbar sticky">
                 <div class="form-inline mr-auto">
                     <ul class="navbar-nav mr-3">
-                        <li><a href="#" data-toggle="sidebar" class="nav-link nav-link-lg
-									collapse-btn">
-                                <i data-feather="align-justify"></i></a></li>
+                        <li><a href="#" data-toggle="sidebar" class="nav-link nav-link-lg collapse-btn">
+                            <i data-feather="align-justify"></i></a></li>
                         <li><a href="#" class="nav-link nav-link-lg fullscreen-btn">
-                                <i data-feather="maximize"></i>
+                            <i data-feather="maximize"></i>
                             </a></li>
                         <li>
                             <form class="form-inline mr-auto">
                                 <div class="search-element">
-                                    <input class="form-control" type="search" placeholder="Search" aria-label="Search"
-                                        data-width="200">
+                                    <input class="form-control" type="search" placeholder="Search" aria-label="Search" data-width="200">
                                     <button class="btn" type="submit">
                                         <i class="fas fa-search"></i>
                                     </button>
                                 </div>
                             </form>
                         </li>
+                        <li>
+                            <div class="form-group">
+                                <div class="input-group">
+                                    <select class="changeLang form-control">
+                                        <option value="en" {{ session()->get('locale') == 'en' ? 'selected' : '' }}>
+                                            <span class="flag-icon flag-icon-us"></span> {{ __('messages.anglais') }}
+                                        </option>
+                                        <option value="fr" {{ session()->get('locale') == 'fr' ? 'selected' : '' }}>
+                                            <span class="flag-icon flag-icon-fr"></span> {{ __('messages.francais') }}
+                                        </option>
+                                    </select>
+                                </div>
+                            </div>
+                        </li>
                     </ul>
                 </div>
-                {{-- <div class="form-group">
-                    <div class="select-container">
-                        <select class="select-container-select changeLang">
-                            <option value="en" {{ session()->get('locale') == 'en' ? 'selected' : '' }}>
-                                <span class="flag-icon flag-icon-us"></span> English
-                            </option>
-                            <option value="fr" {{ session()->get('locale') == 'fr' ? 'selected' : '' }}>
-                                <span class="flag-icon flag-icon-fr"></span> Français
-                            </option>
-                        </select>
-                    </div>
-                </div> --}}
                 <ul class="navbar-nav navbar-right">
                     <li class="dropdown dropdown-list-toggle"><a href="#" data-toggle="dropdown"
                             class="nav-link nav-link-lg message-toggle"><i data-feather="mail"></i>
@@ -488,13 +488,13 @@
     <script src="{{ asset('assets/js/treeview.js') }}"></script>
     <!-- Template JS File -->
 
-    {{-- <script type="text/javascript">
+    <script type="text/javascript">
         var url = "{{ route('changeLang') }}";
 
         $(".changeLang").change(function() {
             window.location.href = url + "?lang=" + $(this).val();
         });
-    </script> --}}
+    </script>
 
     @yield('scripts')
     @stack('other-scripts')
