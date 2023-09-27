@@ -9,7 +9,7 @@ class HomeController extends Controller
 {
     function index(){
         if (Auth::check()) {
-            return view('home');
+            return view('home2');
         }else{
             return view('auth.login');
         }

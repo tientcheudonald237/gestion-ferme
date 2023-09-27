@@ -1,13 +1,58 @@
-@extends('layouts.home')
-@section('styles')
-@endsection
-@section('content')
-  <!-- <nav aria-label="breadcrumb">
-      <ol class="breadcrumb bg-primary text-white-all">
-        <li class="breadcrumb-item" ><a href="#"><i class="fas fa-tachometer-alt"></i> Home</a></li>
-      </ol>
-    </nav> -->
-  <div class="body">
+<!DOCTYPE html>
+<html lang="en">
+
+
+<!-- auth-login.html  21 Nov 2019 03:49:32 GMT -->
+<head>
+  <meta charset="UTF-8">
+  <meta content="width=device-width, initial-scale=1, maximum-scale=1, shrink-to-fit=no" name="viewport">
+  <title>Otika - Admin Dashboard Template</title>
+  <!-- General CSS Files -->
+  <link rel="stylesheet" href="{{  asset('assets/css/app.min.css') }}">
+  <link rel="stylesheet" href="{{ asset('assets/bundles/bootstrap-social/bootstrap-social.css')}}">
+  <!-- Template CSS -->
+  <link rel="stylesheet" href="{{ asset('assets/css/style.css') }}">
+  <link rel="stylesheet" href="{{ asset('assets/css/components.css') }}">
+  <!-- Custom style CSS -->
+  <link rel="stylesheet" href="{{ asset('assets/css/custom.css') }}">
+  <link rel='shortcut icon' type='image/x-icon' href="{{ asset('assets/img/favicon.ico') }}" />
+</head>
+
+<body>
+<div class="body">
+    <nav class="navbar  main-navbar sticky ">
+        <div class="form-inline">
+            <ul class="navbar-nav ">
+                
+                <li><a href="#" class="nav-link nav-link-lg fullscreen-btn">
+                        <i data-feather="maximize"></i>
+                    </a></li>
+                <li>
+                    <form class="form-inline mr-auto">
+                        <div class="search-element">
+                            <input class="form-control" type="search" placeholder="Search" aria-label="Search"
+                                data-width="200">
+                            <button class="btn" type="submit">
+                                <i class="fas fa-search"></i>
+                            </button>
+                        </div>
+                    </form>
+                </li>
+            </ul>
+        </div>
+        {{-- <div class="form-group">
+            <div class="select-container">
+                <select class="select-container-select changeLang">
+                    <option value="en" {{ session()->get('locale') == 'en' ? 'selected' : '' }}>
+                        <span class="flag-icon flag-icon-us"></span> English
+                    </option>
+                    <option value="fr" {{ session()->get('locale') == 'fr' ? 'selected' : '' }}>
+                        <span class="flag-icon flag-icon-fr"></span> Français
+                    </option>
+                </select>
+            </div>
+        </div> --}}
+            </nav>
     <section class="section">
       <div class="row">
         <div class="col-12 col-sm-6 col-md-6 col-lg-3">
@@ -93,6 +138,16 @@
       </div>
     </section>
   </div>
-@endsection
-@push('other-scripts')
-@endpush
+  <!-- General JS Scripts -->
+  <script src="{{ asset('assets/js/app.min.js') }}"></script>
+  <!-- JS Libraies -->
+  <!-- Page Specific JS File -->
+  <!-- Template JS File -->
+  <script src="{{asset('assets/js/scripts.js')}}"></script>
+  <!-- Custom JS File -->
+  <script src="{{ asset('assets/js/custom.js')}}"></script>
+</body>
+
+
+<!-- auth-login.html  21 Nov 2019 03:49:32 GMT -->
+</html>
