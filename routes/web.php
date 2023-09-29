@@ -3,11 +3,7 @@
 use App\Http\Controllers\Accounting\AccountingController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\Auth\LoginController;
-<<<<<<< Updated upstream
 use App\Http\Controllers\LangController;
-use App\Http\Controllers\Personnel\PersonnelController;
-=======
->>>>>>> Stashed changes
 use App\Http\Controllers\Production\ProductionController;
 use App\Http\Controllers\Staff\StaffController;
 use App\Http\Controllers\Trading\TradingController;

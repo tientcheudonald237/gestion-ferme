@@ -8,34 +8,6 @@
                 </a>
             </div>
             <ul class="sidebar-menu">
-<<<<<<< Updated upstream
-                <li class="menu-header">Main</li>
-                <li class="dropdown {{ $activeDropdown === 'index' ? 'active' : '' }}">
-                    <a href="" class="nav-link"><i data-feather="monitor"></i><span>Tableau De Bord</span></a>
-                </li>
-                <li class="dropdown {{ $activeDropdown === 'elevage' ? 'active' : '' }}">
-                    <a href="#" class="menu-toggle nav-link has-dropdown"><i
-                            data-feather="pie-chart"></i><span>Elevage</span></a>
-                    <ul class="dropdown-menu">
-                        <li class="{{ $activeLink === 'animaux' ? 'active' : '' }}">
-                            <a class="nav-link" href="">Animaux</a>
-                        </li>
-                        <li class="{{ $activeLink === 'especes' ? 'active' : '' }}">
-                            <a class="nav-link" href="">Especes</a>
-                        </li>
-                    </ul>
-                </li>
-                <li class="dropdown {{ $activeDropdown === 'analyse' ? 'active' : '' }}">
-                    <a href="#" class="nav-link"><i data-feather="bar-chart"></i><span>Analyse</span></a>
-                </li>
-                <li class="dropdown {{ $activeDropdown === 'rapport' ? 'active' : '' }}">
-                    <a href="#" class="nav-link"><i data-feather="book"></i><span> Rapport</span></a>
-                    <ul class="dropdown-menu">
-                        <li class="{{ $activeLink === 'programme_en_cour' ? 'active' : '' }}"><a class="nav-link" href="email-inbox.html">programmes en cours</a></li>
-                        <li class="{{ $activeLink === 'etablir_programme' ? 'active' : '' }}"><a class="nav-link" href="email-compose.html">Etablir un programme</a></li>
-                    </ul>
-                </li>
-=======
                 @if (Request::is('production/stock*') == true)
                     <li class="dropdown">
                     <li class="menu-header">Stock</li>
@@ -89,7 +61,6 @@
                                 data-feather="monitor"></i><span>Stock</span></a>
                     </li>
                 @endif
->>>>>>> Stashed changes
             </ul>
         </aside>
     </div>
