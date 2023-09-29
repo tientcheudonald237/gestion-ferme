@@ -7,7 +7,16 @@
 
 @endsection
 @section('content')
+<nav aria-label="breadcrumb">
+    <ol class="breadcrumb bg-primary text-white-all">
+        <li class="breadcrumb-item"><a href="{{ route('home') }}">Menu
+                Principale</a></li>
+        <li class="breadcrumb-item"><a href="{{ route('production.index') }}">Production</a>
+        </li>
+    </ol>
+</nav>
     <div class="body">
+<<<<<<< Updated upstream
         <div class="row">
             <div class="col-lg-3 col-md-6 col-sm-6 col-12">
               <div class="card card-statistic-1">
@@ -112,6 +121,9 @@
               </div>
             </div>
         </div>
+=======
+
+>>>>>>> Stashed changes
     </div>
 @endsection
 @push('other-scripts')

@@ -1,4 +1,4 @@
-@extends('layouts.personnel')
+@extends('layouts.staff')
 @section('styles')
 
 @endsection

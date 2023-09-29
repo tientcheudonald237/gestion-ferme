@@ -1,10 +1,10 @@
-@extends('layouts.commercialisation')
+@extends('layouts.accounting')
 @section('styles')
 
 @endsection
 @section('content')
     <div class="body">
-        commercialisation
+        comptabilite
     </div>
 @endsection
 @push('other-scripts')
