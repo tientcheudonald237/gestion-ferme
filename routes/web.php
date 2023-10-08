@@ -4,6 +4,8 @@ use App\Http\Controllers\Accounting\AccountingController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\LangController;
+use App\Http\Controllers\Production\CategoryController;
+use App\Http\Controllers\Production\FoodController;
 use App\Http\Controllers\Production\ProductionController;
 use App\Http\Controllers\Staff\StaffController;
 use App\Http\Controllers\Trading\TradingController;
@@ -43,6 +45,9 @@ Route::middleware(['auth'])->group(function () {
             Route::get('/supply', [ProductionController::class, 'stock_supply_index'])->name('production.stock.supply.index');
         });
     });
+
+    Route::resource('food', FoodController::class);
+    Route::resource('category', CategoryController::class);
 });
 Route::get('lang/change', [LangController::class, 'change'])->name('changeLang');
 

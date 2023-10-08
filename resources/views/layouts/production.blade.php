@@ -4,7 +4,7 @@
         <aside id="sidebar-wrapper">
             <div class="sidebar-brand">
                 <a href="/"> <img alt="image" src="{{ asset('assets/img/logo.png') }}" class="header-logo" />
-                    <span class="logo-name">Guemaleu</span>
+                    <span class="logo-name">Ranch Management</span>
                 </a>
             </div>
             <ul class="sidebar-menu">

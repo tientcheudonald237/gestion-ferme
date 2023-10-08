@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\Production;
 
 use App\Http\Controllers\Controller;
+use App\Models\Category;
+use App\Models\Food;
 use Illuminate\Http\Request;
 
 class ProductionController extends Controller
@@ -22,7 +24,9 @@ class ProductionController extends Controller
     }
 
     function stock_index(){
-        return view('production.stock.index');
+        $foods = Food::count(); 
+        $categories = Category::count();
+        return view('production.stock.index', compact('foods', 'categories'));
     }
 
     function stock_order_index(){

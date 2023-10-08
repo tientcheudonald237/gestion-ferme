@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, shrink-to-fit=no" name="viewport">
     <meta name="csrf-token" content="{{ csrf_token() }}">
-    <title>KITABU @yield('title')</title>
+    <title>Ranch Management @yield('title')</title>
     @yield('meta')
     <!-- General CSS Files -->
     <link rel="stylesheet" href="{{ asset('assets/css/app.min.css') }}">
@@ -270,7 +270,7 @@
 
             <footer class="main-footer">
                 <div class="footer-left" style="">
-                    <a href="#">&copy; {{ __('message._copyrith_') }}</a>
+                    <a href="#">&copy; By Donald</a>
 
                 </div>
 
