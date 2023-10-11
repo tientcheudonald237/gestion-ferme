@@ -5,8 +5,9 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\LangController;
 use App\Http\Controllers\Production\CategoryController;
-use App\Http\Controllers\Production\FoodController;
+use App\Http\Controllers\Production\ProductController;
 use App\Http\Controllers\Production\ProductionController;
+use App\Http\Controllers\Production\StockMovementController;
 use App\Http\Controllers\Staff\StaffController;
 use App\Http\Controllers\Trading\TradingController;
 use Illuminate\Support\Facades\Route;
@@ -43,11 +44,13 @@ Route::middleware(['auth'])->group(function () {
             Route::get('/', [ProductionController::class, 'stock_index'])->name('production.stock.index');
             Route::get('/order', [ProductionController::class, 'stock_order_index'])->name('production.stock.order.index');
             Route::get('/supply', [ProductionController::class, 'stock_supply_index'])->name('production.stock.supply.index');
+            Route::get('/inventory', [ProductionController::class, 'stock_inventory'])->name('production.stock.inventory');
         });
     });
 
-    Route::resource('food', FoodController::class);
+    Route::resource('product', ProductController::class);
     Route::resource('category', CategoryController::class);
+    Route::resource('stock_movement', StockMovementController::class);
 });
 Route::get('lang/change', [LangController::class, 'change'])->name('changeLang');
 

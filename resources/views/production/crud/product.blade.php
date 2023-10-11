@@ -10,14 +10,14 @@
                             Principale</a></li>
                     <li class="breadcrumb-item"><a href="{{ route('production.stock.index') }}">Production</a>
                     </li>
-                    <li class="breadcrumb-item active"><a href="#"></i>Aliments</a></li>
+                    <li class="breadcrumb-item active"><a href="#"></i>Produits</a></li>
                 </ol>
             </nav>
         </div>
         <div class="col-md-auto">
             <nav aria-label="breadcrumb">
-                <a class="btn btn-success btn-pilll " data-toggle="modal" data-target="#addfood" href="">
-                    Ajouter un Aliment
+                <a class="btn btn-success btn-pilll " data-toggle="modal" data-target="#addproduct" href="">
+                    Ajouter un Prodiut
                 </a>
             </nav>
         </div>
@@ -27,7 +27,7 @@
             <div class="col-12 col-md-12 col-lg-12">
                 <div class="card">
                     <div class="card-header">
-                        <h4>Liste des Aliments</h4>
+                        <h4>Liste des Produits</h4>
                     </div>
                     <div class="card-body">
                         <div class="table-responsive">
@@ -43,7 +43,7 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @foreach ($foods as $index => $value)
+                                    @foreach ($products as $index => $value)
                                         <tr>
                                             <td>{{ $index + 1 }}</td>
                                             <td>{{ $value->code }}</td>
@@ -57,8 +57,8 @@
                                             </td>
                                             <td>{{ date('d-m-y H:i A', strtotime($value->created_at)) }}</td>
                                             <td>
-                                                <a class="btn btn-primary btn-action mr-1" onclick="edit_food({{ $value->id }});" title="Edit"><i class="fas fa-pencil-alt"></i></a>
-                                                <a class="btn btn-danger btn-action" title="Delete" onclick="event.preventDefault();delete_food({{ $value->id }});"><i class="fas fa-trash"></i></a>
+                                                <a class="btn btn-primary btn-action mr-1" onclick="edit_product({{ $value->id }});" title="Edit"><i class="fas fa-pencil-alt"></i></a>
+                                                <a class="btn btn-danger btn-action" title="Delete" onclick="event.preventDefault();delete_product({{ $value->id }});"><i class="fas fa-trash"></i></a>
                                             </td>
                                         </tr>
                                     @endforeach
@@ -70,27 +70,27 @@
             </div>
         </div>
     </div>
-    <div class="modal fade" id="addfood" tabindex="-1" role="dialog" aria-labelledby="" aria-hidden="true">
+    <div class="modal fade" id="addproduct" tabindex="-1" role="dialog" aria-labelledby="" aria-hidden="true">
         <div class="modal-dialog modal-lg">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="">Ajouter un Aliment</h5>
+                    <h5 class="modal-title" id="">Ajouter un produit</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
                 <div class="modal-body">
-                    <form action="{{ route('food.store') }}" method="post">
+                    <form action="{{ route('product.store') }}" method="post">
                         @csrf
                         @method('POST')
                         <div class="form-group">
                             <label for="code">Code</label>
-                            <input type="text" class="form-control" placeholder="Code de l'aliment" name="code"
+                            <input type="text" class="form-control" placeholder="Code du produit" name="code"
                                 required>
                         </div>
                         <div class="form-group">
                             <label for="designation">Designation</label>
-                            <input type="text" class="form-control" placeholder="Designatoin de l'aliment"
+                            <input type="text" class="form-control" placeholder="Designatoin du produit"
                                 name="designation" required>
                         </div>
                         <div class="form-group">
@@ -108,27 +108,27 @@
             </div>
         </div>
     </div>
-    <div class="modal fade" id="Editfood" tabindex="-1" role="dialog" aria-labelledby="" aria-hidden="true">
+    <div class="modal fade" id="editproduct" tabindex="-1" role="dialog" aria-labelledby="" aria-hidden="true">
         <div class="modal-dialog modal-lg">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="">Editer un Aliment</h5>
+                    <h5 class="modal-title" id="">Editer un Produit</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
                 <div class="modal-body">
-                    <form action="" method="post" id="form_update_food">
+                    <form action="" method="post" id="form_update_product">
                         @csrf
                         @method('PUT')
                         <div class="form-group">
                             <label for="code">Code</label>
-                            <input type="text" class="form-control" placeholder="Code de  l'aliment" name="code"
+                            <input type="text" class="form-control" placeholder="Code du produit" name="code"
                                 required id="code">
                         </div>
                         <div class="form-group">
                             <label for="designation">Designation</label>
-                            <input type="text" class="form-control" placeholder="Designatoin de l'aliment"
+                            <input type="text" class="form-control" placeholder="Designatoin du produit"
                                 name="designation" required id="designation">
                         </div>
                         <div class="form-group">
@@ -149,10 +149,10 @@
 @endsection
 @push('other-scripts')
     <script type="text/javascript">
-        function edit_food(id) {
-            var de = document.getElementById('form_update_food')
-            de.setAttribute('action', '/food/' + id);
-            var urls = "/food/" + id;
+        function edit_product(id) {
+            var de = document.getElementById('form_update_product')
+            de.setAttribute('action', '/product/' + id);
+            var urls = "/product/" + id;
             $.ajax({
                 url: urls,
                 type: 'GET',
@@ -170,10 +170,10 @@
                     }
                 }
             });
-            $('#Editfood').modal('show');
+            $('#editproduct').modal('show');
         }
 
-        function delete_food(id) {
+        function delete_product(id) {
             swal({
                     title: 'Suppression',
                     text: 'Voulez vous vraiment supprimer ??',
@@ -183,7 +183,7 @@
                 })
                 .then((willDelete) => {
                     if (willDelete) {
-                        var url = "/food/" + id;
+                        var url = "/products/" + id;
                         var xhr = new XMLHttpRequest();
                         xhr.open('DELETE', url);
                         xhr.setRequestHeader('X-CSRF-TOKEN', '{{ csrf_token() }}');

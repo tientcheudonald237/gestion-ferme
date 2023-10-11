@@ -3,12 +3,12 @@
 namespace App\Http\Controllers\Production;
 
 use App\Http\Controllers\Controller;
-use App\Models\Category;
+use App\Models\Product;
+use App\Models\StockMovement;
 use Brian2694\Toastr\Facades\Toastr;
 use Illuminate\Http\Request;
-use App\Models\Food;
 
-class FoodController extends Controller
+class StockMovementController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -17,9 +17,7 @@ class FoodController extends Controller
      */
     public function index()
     {
-        $foods = Food::all();
-        $categories = Category::all();
-        return  response()->view('production.crud.food', compact('foods', 'categories'));
+        //
     }
 
     /**
@@ -42,21 +40,23 @@ class FoodController extends Controller
     {
         try {
             if (
-                empty($request->code) ||
-                empty($request->designation) ||
-                empty($request->id_category)
+                empty($request->id_product) ||
+                empty($request->quantity) ||
+                empty($request->type) ||
+                empty($request->unit_acquisition_price)
             ) {
                 Toastr::error('Message', 'Veuillez remplir tous les champs obligatoires');
                 return redirect()->back();
             }
 
-            $food = new Food();
-            $food->code = $request->code;
-            $food->designation = $request->designation;
-            $food->id_category = $request->id_category;
-            $food->save();
+            $stock_movement = new StockMovement();
+            $stock_movement->id_product = $request->id_product;
+            $stock_movement->quantity = $request->quantity;
+            $stock_movement->unit_acquisition_price = $request->unit_acquisition_price;
+            $stock_movement->observation = $request->observation ? $request->observation : '';
+            $stock_movement->save();
 
-            Toastr::success('Message', 'Étudiant ajouté avec succès');
+            Toastr::success('Message', 'Le Nouveau stock a ete ajoute avec succès');
             return redirect()->back();
 
         }catch (\Exception $e) {
@@ -74,7 +74,7 @@ class FoodController extends Controller
     public function show($id)
     {
         try{
-            $check = Food::where('id', $id)->first();
+            $check = StockMovement::where('id', $id)->first();
             if($check){
                 return response()->json($check);
             }else{
@@ -105,30 +105,7 @@ class FoodController extends Controller
      */
     public function update(Request $request, $id)
     {
-        try {
-            if (
-                empty($request->code) ||
-                empty($request->designation) ||
-                empty($request->id_category)
-            ) {
-                Toastr::error('Message', 'Veuillez remplir tous les champs obligatoires');
-                return redirect()->back();
-            }
-
-
-            $food = Food::where('id', $id)->first();
-            $food->code = $request->code;
-            $food->designation = $request->designation;
-            $food->id_category = $request->id_category;
-            $food->save();
-
-            Toastr::success('Message', "La classe a bien ete modifie");
-            return redirect()->back();
-
-        } catch (\Exception $e) {
-            Toastr::error('Message',"Une Erreur c'est produite");
-            return redirect()->back();
-        }
+        //
     }
 
     /**
@@ -140,9 +117,9 @@ class FoodController extends Controller
     public function destroy($id)
     {
         try {
-            $food = Food::where('id', $id)->first();
-            if ($food) {
-                $food->delete();
+            $stock_movement = StockMovement::where('id', $id)->first();
+            if ($stock_movement) {
+                $stock_movement->delete();
                 return response()->json('ok');
             } else {
                 return response()->json('off');

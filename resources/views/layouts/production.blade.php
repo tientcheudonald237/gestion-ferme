@@ -32,6 +32,10 @@
                                 </li>
                             </ul>
                         </li>
+                        <li class="dropdown {{ Request::is('production/stock/inventory') ? 'active' : '' }}">
+                            <a href="{{ route('production.stock.inventory') }}" class="nav-link"><i
+                                    data-feather="monitor"></i><span>Inventaire</span></a>
+                        </li>
                     </ul>
                     </li>
                 @else

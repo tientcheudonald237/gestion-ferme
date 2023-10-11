@@ -22,9 +22,9 @@
                         <div class="padding-20">
                             <div class="text-right">
                                 <h3 class="font-light mb-0">
-                                    <i class="ti-arrow-up text-success"></i> {{ $foods }}
+                                    <i class="ti-arrow-up text-success"></i> {{ $products }}
                                 </h3>
-                                <a href="{{ route('food.index') }}" class="text-muted font-weight-bold font-25">Aliments</a>
+                                <a href="{{ route('product.index') }}" class="text-muted font-weight-bold font-25">Produits</a>
                             </div>
                         </div>
                     </div>

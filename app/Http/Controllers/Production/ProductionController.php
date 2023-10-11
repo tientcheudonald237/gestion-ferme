@@ -4,7 +4,8 @@ namespace App\Http\Controllers\Production;
 
 use App\Http\Controllers\Controller;
 use App\Models\Category;
-use App\Models\Food;
+use App\Models\Product;
+use App\Models\StockMovement;
 use Illuminate\Http\Request;
 
 class ProductionController extends Controller
@@ -24,9 +25,9 @@ class ProductionController extends Controller
     }
 
     function stock_index(){
-        $foods = Food::count(); 
+        $products = Product::count(); 
         $categories = Category::count();
-        return view('production.stock.index', compact('foods', 'categories'));
+        return view('production.stock.index', compact('products', 'categories'));
     }
 
     function stock_order_index(){
@@ -35,5 +36,11 @@ class ProductionController extends Controller
 
     function stock_supply_index(){
         return view('production.stock.supply.index');
+    }
+
+    function stock_inventory(){
+        $stock_movements = StockMovement::all();
+        $products = Product::all();
+        return view('production.stock.inventory', compact('stock_movements', 'products'));
     }
 }
