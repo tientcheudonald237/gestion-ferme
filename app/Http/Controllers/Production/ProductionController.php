@@ -41,6 +41,8 @@ class ProductionController extends Controller
     function stock_inventory(){
         $stock_movements = StockMovement::all();
         $products = Product::all();
+        $product = Product::find(2);
+
         return view('production.stock.inventory', compact('stock_movements', 'products'));
     }
 }

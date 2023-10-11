@@ -27,6 +27,30 @@
         </div>
     </div>
     <div class="body">
+        <div class="row mt-2">
+            @foreach ($products as $product)
+                @php
+                    $inventory = $product->all_inventory;
+                    $n = 0;
+                    foreach ($inventory as $movement) {
+                        if ($movement->type == 'out') {
+                            $n -= $movement->quantity;
+                        } else {
+                            $n += $movement->quantity;
+                        }
+                    }
+                @endphp
+                <div class="col-12 col-md-6 col-lg-3">
+                    <div class="card card-warning">
+                        <div class="card-header">
+                            <h4>{{ $product->code }}<br>{{ $product->designation }}</h4>
+                            <h5 class="pl-5"><span class="badge badge-info"
+                                    style="font-size: 2.5rem">{{ $n }}</span></h5>
+                        </div>
+                    </div>
+                </div>
+            @endforeach
+        </div>
         <div class="row">
             <div class="col-12 col-md-12 col-lg-12">
                 <div class="card">
@@ -60,9 +84,11 @@
                                             <td>{{ $value->unit_acquisition_price }}</td>
                                             <td>{{ $value->observation }}</td>
                                             </td>
-                                            <td class="badge @if ($value->type == 'out') badge-danger @else badge-success @endif">{{ date('d-m-y H:i A', strtotime($value->created_at)) }}</td>
+                                            <td
+                                                class="badge @if ($value->type == 'out') badge-danger @else badge-success @endif">
+                                                {{ date('d-m-y H:i A', strtotime($value->created_at)) }}</td>
                                             <td>
-                                               
+
                                             </td>
                                         </tr>
                                     @endforeach
@@ -90,64 +116,29 @@
                         <div class="form-group">
                             <label for="id_product">ID du produit<span class="text-danger">*</span></label>
                             <select class="form-control" name="id_product" required id="id_product">
-                                @foreach ($products as $value )
-                                    <option value="{{ $value->id }}">{{ $value->code }} {{ $value->designation }}</option>
+                                @foreach ($products as $value)
+                                    <option value="{{ $value->id }}">{{ $value->code }} {{ $value->designation }}
+                                    </option>
                                 @endforeach
                             </select>
                         </div>
                         <div class="form-group">
                             <label for="quantity">Quantité<span class="text-danger">*</span></label>
-                            <input type="number" class="form-control" placeholder="Quantité" name="quantity" required id="quantity">
+                            <input type="number" class="form-control" placeholder="Quantité" name="quantity" required
+                                id="quantity">
                         </div>
                         <div class="form-group">
-                            <label for="unit_acquisition_price">Prix unitaire d'acquisition<span class="text-danger">*</span></label>
-                            <input type="number" class="form-control" placeholder="Prix unitaire d'acquisition" name="unit_acquisition_price"
-                                required id="unit_acquisition_price">
+                            <label for="unit_acquisition_price">Prix unitaire d'acquisition<span
+                                    class="text-danger">*</span></label>
+                            <input type="number" class="form-control" placeholder="Prix unitaire d'acquisition"
+                                name="unit_acquisition_price" required id="unit_acquisition_price">
                         </div>
                         <div class="form-group">
                             <label for="observation">Observation</label>
                             <textarea class="form-control" placeholder="Observation" name="observation" id="observation"></textarea>
                         </div>
-                        <input type="hidden" name="type" value="entry"> 
+                        <input type="hidden" name="type" value="entry">
                         <button class="btn btn-success btn-block" type="submit">Valider</button>
-                    </form>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="modal fade" id="movement_out" tabindex="-1" role="dialog" aria-labelledby="" aria-hidden="true">
-        <div class="modal-dialog modal-lg">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="">Editer un Produit</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    <form action="" method="post" id="form_update_product">
-                        @csrf
-                        @method('PUT')
-                        <div class="form-group">
-                            <label for="code">Code</label>
-                            <input type="text" class="form-control" placeholder="Code du produit" name="code"
-                                required id="code">
-                        </div>
-                        <div class="form-group">
-                            <label for="designation">Designation</label>
-                            <input type="text" class="form-control" placeholder="Designatoin du produit"
-                                name="designation" required id="designation">
-                        </div>
-                        {{-- <div class="form-group">
-                            <label for="id_category">Categorie</label>
-                            <select name="id_category" class="form-control" required id="id_category" required>
-                                <option value="choisissez la ategory"></option>
-                                @foreach ($categories as $value )
-                                    <option value="{{ $value->id }}"> {{ $value->code }} {{ $value->designation }}</option>
-                                @endforeach
-                            </select>
-                        </div> --}}
-                        <button class="btn btn-success btn-block" type="submit">valider</button>
                     </form>
                 </div>
             </div>
