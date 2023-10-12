@@ -134,6 +134,10 @@
                                 name="unit_acquisition_price" required id="unit_acquisition_price">
                         </div>
                         <div class="form-group">
+                            <label for="bill_number">Numero de la Facture <span class="text-danger">*</span></label>
+                            <input type="text" class="form-control" placeholder="Numero de facture" name="bill_number" required id="bill_number">
+                        </div>
+                        <div class="form-group">
                             <label for="observation">Observation</label>
                             <textarea class="form-control" placeholder="Observation" name="observation" id="observation"></textarea>
                         </div>

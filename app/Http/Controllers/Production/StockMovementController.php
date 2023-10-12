@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Production;
 use App\Http\Controllers\Controller;
 use App\Models\Product;
 use App\Models\StockMovement;
+use App\Services\StockService;
 use Brian2694\Toastr\Facades\Toastr;
 use Illuminate\Http\Request;
 
@@ -43,18 +44,15 @@ class StockMovementController extends Controller
                 empty($request->id_product) ||
                 empty($request->quantity) ||
                 empty($request->type) ||
-                empty($request->unit_acquisition_price)
+                empty($request->unit_acquisition_price) ||
+                empty($request->bill_number)
             ) {
                 Toastr::error('Message', 'Veuillez remplir tous les champs obligatoires');
                 return redirect()->back();
             }
 
-            $stock_movement = new StockMovement();
-            $stock_movement->id_product = $request->id_product;
-            $stock_movement->quantity = $request->quantity;
-            $stock_movement->unit_acquisition_price = $request->unit_acquisition_price;
-            $stock_movement->observation = $request->observation ? $request->observation : '';
-            $stock_movement->save();
+            $stock_service = new StockService();
+            $stock_service->out_of_stock($request);
 
             Toastr::success('Message', 'Le Nouveau stock a ete ajoute avec succès');
             return redirect()->back();
