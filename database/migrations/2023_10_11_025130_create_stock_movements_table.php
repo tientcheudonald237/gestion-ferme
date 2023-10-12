@@ -16,6 +16,7 @@ class CreateStockMovementsTable extends Migration
         Schema::create('stock_movements', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('id_product');
+            $table->string('bill_number')->nullable();
             $table->integer('quantity');
             $table->float('unit_acquisition_price')->nullable();
             $table->enum('type', ['entry','out']);
