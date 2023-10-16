@@ -27,29 +27,38 @@
         </div>
     </div>
     <div class="body">
-        <div class="row mt-2">
-            @foreach ($products as $product)
-                @php
-                    $inventory = $product->all_inventory;
-                    $n = 0;
-                    foreach ($inventory as $movement) {
-                        if ($movement->type == 'out') {
-                            $n -= $movement->quantity;
-                        } else {
-                            $n += $movement->quantity;
-                        }
-                    }
-                @endphp
-                <div class="col-12 col-md-6 col-lg-3">
-                    <div class="card card-warning">
-                        <div class="card-header">
-                            <h4>{{ $product->code }}<br>{{ $product->designation }}</h4>
-                            <h5 class="pl-5"><span class="badge badge-info"
-                                    style="font-size: 2.5rem">{{ $n }}</span></h5>
-                        </div>
+        <div class="card mt-4">
+            <div class="card-header">
+                <h4 data-toggle="collapse" href="#product" role="button" aria-expanded="false" aria-controls="product">Produit</h4>
+            </div>
+            <div class="card-body">
+                <div class="collapse" id="product">
+                    <div class="row">
+                        @foreach ($products as $product)
+                            @php
+                                $inventory = $product->all_inventory;
+                                $n = 0;
+                                foreach ($inventory as $movement) {
+                                    if ($movement->type == 'out') {
+                                        $n -= $movement->quantity;
+                                    } else {
+                                        $n += $movement->quantity;
+                                    }
+                                }
+                            @endphp
+                            <div class="col-12 col-md-6 col-lg-3">
+                                <div class="card card-warning">
+                                    <div class="card-header">
+                                        <h4>{{ $product->code }}<br>{{ $product->designation }}</h4>
+                                        <h5 class="pl-5"><span class="badge badge-info"
+                                                style="font-size: 2.5rem">{{ $n }}</span></h5>
+                                    </div>
+                                </div>
+                            </div>
+                        @endforeach
                     </div>
                 </div>
-            @endforeach
+            </div>
         </div>
         <div class="row">
             <div class="col-12 col-md-12 col-lg-12">
@@ -135,13 +144,52 @@
                         </div>
                         <div class="form-group">
                             <label for="bill_number">Numero de la Facture <span class="text-danger">*</span></label>
-                            <input type="text" class="form-control" placeholder="Numero de facture" name="bill_number" required id="bill_number">
+                            <input type="text" class="form-control" placeholder="Numero de facture" name="bill_number"
+                                required id="bill_number">
                         </div>
                         <div class="form-group">
                             <label for="observation">Observation</label>
                             <textarea class="form-control" placeholder="Observation" name="observation" id="observation"></textarea>
                         </div>
                         <input type="hidden" name="type" value="entry">
+                        <button class="btn btn-success btn-block" type="submit">Valider</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" id="movement_out" tabindex="-1" role="dialog" aria-labelledby="" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="">Sortie</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form action="{{ route('stock_movement.store') }}" method="post" id="form_update_product">
+                        @csrf
+                        @method('POST')
+                        <div class="form-group">
+                            <label for="id_product">ID du produit<span class="text-danger">*</span></label>
+                            <select class="form-control" name="id_product" required id="id_product">
+                                @foreach ($products as $value)
+                                    <option value="{{ $value->id }}">{{ $value->code }} {{ $value->designation }}
+                                    </option>
+                                @endforeach
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="quantity">Quantité<span class="text-danger">*</span></label>
+                            <input type="number" class="form-control" placeholder="Quantité" name="quantity" required
+                                id="quantity">
+                        </div>
+                        <div class="form-group">
+                            <label for="observation">Observation</label>
+                            <textarea class="form-control" placeholder="Observation" name="observation" id="observation"></textarea>
+                        </div>
+                        <input type="hidden" name="type" value="out">
                         <button class="btn btn-success btn-block" type="submit">Valider</button>
                     </form>
                 </div>

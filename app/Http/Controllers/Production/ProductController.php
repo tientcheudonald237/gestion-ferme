@@ -4,7 +4,6 @@ namespace App\Http\Controllers\Production;
 
 use App\Http\Controllers\Controller;
 use App\Models\Category;
-use Brian2694\Toastr\Facades\Toastr;
 use Illuminate\Http\Request;
 use App\Models\Product;
 
@@ -46,7 +45,7 @@ class ProductController extends Controller
                 empty($request->designation) ||
                 empty($request->id_category)
             ) {
-                Toastr::error('Message', 'Veuillez remplir tous les champs obligatoires');
+                toastr()->error('Message', 'Veuillez remplir tous les champs obligatoires');
                 return redirect()->back();
             }
 
@@ -55,12 +54,11 @@ class ProductController extends Controller
             $product->designation = $request->designation;
             $product->id_category = $request->id_category;
             $product->save();
-
-            Toastr::success('Message', 'Produit ajouté avec succès');
+            toastr()->success('Veuillez remplir tous les champs');
             return redirect()->back();
 
         }catch (\Exception $e) {
-            Toastr::error('Message', 'Une Erreur c\'est produite');
+            toastr()->error('Message', 'Une Erreur c\'est produite');
             return redirect()->back();
         }
     }
@@ -111,7 +109,7 @@ class ProductController extends Controller
                 empty($request->designation) ||
                 empty($request->id_category)
             ) {
-                Toastr::error('Message', 'Veuillez remplir tous les champs obligatoires');
+                toastr()->error('Message', 'Veuillez remplir tous les champs obligatoires');
                 return redirect()->back();
             }
 
@@ -122,11 +120,11 @@ class ProductController extends Controller
             $product->id_category = $request->id_category;
             $product->save();
 
-            Toastr::success('Message', "Le produit a bien ete modifie");
+            toastr()->success('Message', "Le produit a bien ete modifie");
             return redirect()->back();
 
         } catch (\Exception $e) {
-            Toastr::error('Message',"Une Erreur c'est produite");
+            toastr()->error('Message',"Une Erreur c'est produite");
             return redirect()->back();
         }
     }

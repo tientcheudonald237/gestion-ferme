@@ -40,25 +40,42 @@ class StockMovementController extends Controller
     public function store(Request $request)
     {
         try {
-            if (
-                empty($request->id_product) ||
-                empty($request->quantity) ||
-                empty($request->type) ||
-                empty($request->unit_acquisition_price) ||
-                empty($request->bill_number)
-            ) {
-                Toastr::error('Message', 'Veuillez remplir tous les champs obligatoires');
-                return redirect()->back();
-            }
+            
 
             $stock_service = new StockService();
-            $stock_service->out_of_stock($request);
 
-            Toastr::success('Message', 'Le Nouveau stock a ete ajoute avec succès');
+            if($request->type === 'entry'){
+                $stock_service->enter_from_stock($request);
+
+                if (
+                    empty($request->id_product) ||
+                    empty($request->quantity) ||
+                    empty($request->type) ||
+                    empty($request->unit_acquisition_price) ||
+                    empty($request->bill_number)
+                ) {
+                    toastr()->error('Message', 'Veuillez remplir tous les champs obligatoires');
+                    return redirect()->back();
+                }
+
+            }else{
+                if (
+                    empty($request->id_product) ||
+                    empty($request->quantity) ||
+                    empty($request->type) 
+                ) {
+                    toastr()->error('Message', 'Veuillez remplir tous les champs obligatoires');
+                    return redirect()->back();
+                }
+                
+                $stock_service->out_of_stock($request);
+            }
+
+            toastr()->success('Message', 'Le Nouveau stock a ete ajoute avec succès');
             return redirect()->back();
 
         }catch (\Exception $e) {
-            Toastr::error('Message', 'Une Erreur c\'est produite');
+            toastr()->error('Message', 'Une Erreur c\'est produite');
             return redirect()->back();
         }
     }
