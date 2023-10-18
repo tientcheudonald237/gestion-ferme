@@ -21,12 +21,19 @@ class StockService
         $stock_movement->save();
         
         $product = Product::find($request->id_product);
-        $product->stock += $request->quantity;
+        $product->stock -= $request->quantity;
         $product->save();
-        if( $product->stock <= $product->alert_stock  ){
-            $order = new Order();
-            $order->current_stock = $product->stock;
-            $order->id_product = $product->save();
+
+        if( $product->stock <= $product->alert_stock ){
+            $order = Order::where('id_product', $product->id)->first();
+            if($order){
+                $order->current_stock = $product->stock;
+            }else{
+                $order = new Order();
+                $order->current_stock = $product->stock;
+                $order->id_product = $product->id;
+            }
+            $order->save();
         }
     }
 
@@ -40,6 +47,11 @@ class StockService
         $stock_movement->observation = $request->observation ? $request->observation : '';
         $stock_movement->type = 'entry';
         $stock_movement->save();
+
+        $product = Product::find($request->id_product);
+        $product->stock += $request->quantity;
+        $product->save(); 
+
 
     }
 }

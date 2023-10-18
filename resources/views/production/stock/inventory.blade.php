@@ -35,23 +35,12 @@
                 <div class="collapse" id="product">
                     <div class="row">
                         @foreach ($products as $product)
-                            @php
-                                $inventory = $product->all_inventory;
-                                $n = 0;
-                                foreach ($inventory as $movement) {
-                                    if ($movement->type == 'out') {
-                                        $n -= $movement->quantity;
-                                    } else {
-                                        $n += $movement->quantity;
-                                    }
-                                }
-                            @endphp
                             <div class="col-12 col-md-6 col-lg-3">
                                 <div class="card card-warning">
                                     <div class="card-header">
                                         <h4>{{ $product->code }}<br>{{ $product->designation }}</h4>
                                         <h5 class="pl-5"><span class="badge badge-info"
-                                                style="font-size: 2.5rem">{{ $n }}</span></h5>
+                                                style="font-size: 2.5rem">{{ $product->stock }}</span></h5>
                                     </div>
                                 </div>
                             </div>
@@ -133,13 +122,13 @@
                         </div>
                         <div class="form-group">
                             <label for="quantity">Quantité<span class="text-danger">*</span></label>
-                            <input type="number" class="form-control" placeholder="Quantité" name="quantity" required
+                            <input type="number" class="form-control" min="0" placeholder="Quantité" name="quantity" required
                                 id="quantity">
                         </div>
                         <div class="form-group">
                             <label for="unit_acquisition_price">Prix unitaire d'acquisition<span
                                     class="text-danger">*</span></label>
-                            <input type="number" class="form-control" placeholder="Prix unitaire d'acquisition"
+                            <input type="number" class="form-control" min="0" placeholder="Prix unitaire d'acquisition"
                                 name="unit_acquisition_price" required id="unit_acquisition_price">
                         </div>
                         <div class="form-group">
@@ -182,7 +171,7 @@
                         </div>
                         <div class="form-group">
                             <label for="quantity">Quantité<span class="text-danger">*</span></label>
-                            <input type="number" class="form-control" placeholder="Quantité" name="quantity" required
+                            <input type="number" class="form-control" placeholder="Quantité" min="1" name="quantity" required
                                 id="quantity">
                         </div>
                         <div class="form-group">

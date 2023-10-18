@@ -8,10 +8,10 @@
                 </a>
             </div>
             <ul class="sidebar-menu">
-                @if (Request::is('production/stock*') == true)
+                @if (Request::is('production/stock*') == true || Request::is('product') == true || Request::is('category') == true)
                     <li class="dropdown">
                     <li class="menu-header">Stock</li>
-                    <li class="dropdown {{ Request::is('production/stock') ? 'active' : '' }}">
+                    <li class="dropdown {{ Request::is('production/stock') ? 'active' : '' }} {{ Request::is('product') ? 'active' : '' }}  {{ Request::is('category') ? 'active' : '' }}">
                         <a href="{{ route('production.stock.index') }}" class="nav-link"><i
                                 data-feather="monitor"></i><span>Tableau De Bord</span></a>
                     </li>

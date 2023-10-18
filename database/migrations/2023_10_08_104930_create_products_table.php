@@ -17,7 +17,7 @@ class CreateProductsTable extends Migration
             $table->id();
             $table->string('code');
             $table->string('designation');
-            $table->integer('stock');  
+            $table->integer('stock')->default(0);  
             $table->integer('alert_stock');  
             $table->string('unit');
 

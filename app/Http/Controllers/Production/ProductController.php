@@ -43,7 +43,9 @@ class ProductController extends Controller
             if (
                 empty($request->code) ||
                 empty($request->designation) ||
-                empty($request->id_category)
+                empty($request->id_category) ||
+                empty($request->unit) ||
+                empty($request->alert_stock)
             ) {
                 toastr()->error('Message', 'Veuillez remplir tous les champs obligatoires');
                 return redirect()->back();
@@ -53,11 +55,14 @@ class ProductController extends Controller
             $product->code = $request->code;
             $product->designation = $request->designation;
             $product->id_category = $request->id_category;
+            $product->unit = $request->unit;
+            $product->alert_stock = $request->alert_stock;
             $product->save();
-            toastr()->success('Veuillez remplir tous les champs');
+            toastr()->success('Le produit a bien ete ajoute');
             return redirect()->back();
 
         }catch (\Exception $e) {
+            dd($e->getMessage());
             toastr()->error('Message', 'Une Erreur c\'est produite');
             return redirect()->back();
         }
@@ -107,7 +112,9 @@ class ProductController extends Controller
             if (
                 empty($request->code) ||
                 empty($request->designation) ||
-                empty($request->id_category)
+                empty($request->id_category) ||
+                empty($request->unit) ||
+                empty($request->alert_stock)
             ) {
                 toastr()->error('Message', 'Veuillez remplir tous les champs obligatoires');
                 return redirect()->back();
@@ -118,6 +125,8 @@ class ProductController extends Controller
             $product->code = $request->code;
             $product->designation = $request->designation;
             $product->id_category = $request->id_category;
+            $product->unit = $request->unit;
+            $product->alert_stock = $request->alert_stock;
             $product->save();
 
             toastr()->success('Message', "Le produit a bien ete modifie");

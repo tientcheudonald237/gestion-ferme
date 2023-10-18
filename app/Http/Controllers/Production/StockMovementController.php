@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Production;
 
 use App\Http\Controllers\Controller;
+use App\Models\Order;
 use App\Models\Product;
 use App\Models\StockMovement;
 use App\Services\StockService;
@@ -40,13 +41,10 @@ class StockMovementController extends Controller
     public function store(Request $request)
     {
         try {
-            
 
             $stock_service = new StockService();
 
-            if($request->type === 'entry'){
-                $stock_service->enter_from_stock($request);
-
+            if ($request->type === 'entry') {
                 if (
                     empty($request->id_product) ||
                     empty($request->quantity) ||
@@ -58,24 +56,39 @@ class StockMovementController extends Controller
                     return redirect()->back();
                 }
 
-            }else{
+                $stock_service->enter_from_stock($request);
+                if(!empty($request->id_order)){
+                    $order = Order::find($request->id_order);
+                    if($order){
+                        $order->delete();
+                    }
+                    toastr()->success('Message', 'La commande a ete traiter et supprimer avec success !');
+                }
+                
+            } else {
                 if (
                     empty($request->id_product) ||
                     empty($request->quantity) ||
-                    empty($request->type) 
+                    empty($request->type)
                 ) {
                     toastr()->error('Message', 'Veuillez remplir tous les champs obligatoires');
                     return redirect()->back();
                 }
-                
+                $product = Product::find($request->id_product);
+                // dd($request->quantity . "   " . $product->stock);
+                if ($request->quantity > $product->stock) {
+                    toastr()->warning('Message', 'vous ne pouvez pas retirer moins que la quantite actuelle !!');
+                    return redirect()->back();
+                }
                 $stock_service->out_of_stock($request);
             }
 
             toastr()->success('Message', 'Le Nouveau stock a ete ajoute avec succès');
             return redirect()->back();
 
-        }catch (\Exception $e) {
-            toastr()->error('Message', 'Une Erreur c\'est produite');
+        } catch (\Exception $e) {
+            dd($e->getMessage());
+            // toastr()->error('Message', 'Une Erreur c\'est produite');
             return redirect()->back();
         }
     }
@@ -88,14 +101,14 @@ class StockMovementController extends Controller
      */
     public function show($id)
     {
-        try{
+        try {
             $check = StockMovement::where('id', $id)->first();
-            if($check){
+            if ($check) {
                 return response()->json($check);
-            }else{
+            } else {
                 return response()->json('off');
             }
-        }catch(\Exception $e){
+        } catch (\Exception $e) {
             return response()->json('off');
         }
     }

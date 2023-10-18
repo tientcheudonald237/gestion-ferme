@@ -16,9 +16,11 @@ class CreateOrdersTable extends Migration
         Schema::create('orders', function (Blueprint $table) {
             $table->id();
             $table->integer('current_stock');
-            $table->integer('order_stock');
+            $table->integer('order_stock')->nullable();
             $table->unsignedBigInteger('id_product');
             $table->enum('status', ['potential', 'transmitted', 'in_progress', 'valide'])->default('potential');
+
+            $table->foreign('id_product')->references('id')->on('products')->onDelete('cascade')->onUpdate('cascade');
             $table->timestamps();
         });
     }

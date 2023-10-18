@@ -124,6 +124,7 @@
 @endsection
 @push('other-scripts')
     <script>
+
         function edit_category(id) {
             var de = document.getElementById('form_update_category')
             de.setAttribute('action', '/category/' + id);
@@ -166,10 +167,20 @@
                                 var response = JSON.parse(xhr.responseText);
                                 console.log(response);
                                 if (response === 'ok') {
+                                    swal('Suppresion reussit avec success !!', {
+                                        icon: 'success',
+                                    });
                                     location.reload();
                                 } else {
-                                    location.reload();
+                                    swal('Une erreur est survenu  !!', {
+                                        icon: 'error',
+                                    });
+                                    // location.reload();
                                 }
+                            }else{
+                                swal('Une erreur est survenu  !!', {
+                                        icon: 'error',
+                                    });
                             }
                         };
                         xhr.send();

@@ -5,6 +5,7 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\LangController;
 use App\Http\Controllers\Production\CategoryController;
+use App\Http\Controllers\Production\OrderController;
 use App\Http\Controllers\Production\ProductController;
 use App\Http\Controllers\Production\ProductionController;
 use App\Http\Controllers\Production\StockMovementController;
@@ -42,7 +43,7 @@ Route::middleware(['auth'])->group(function () {
         });
         Route::prefix('stock')->group(function(){
             Route::get('/', [ProductionController::class, 'stock_index'])->name('production.stock.index');
-            Route::get('/order', [ProductionController::class, 'stock_order_index'])->name('production.stock.order.index');
+            Route::get('/orders', [ProductionController::class, 'stock_order_index'])->name('production.stock.order.index');
             Route::get('/supply', [ProductionController::class, 'stock_supply_index'])->name('production.stock.supply.index');
             Route::get('/inventory', [ProductionController::class, 'stock_inventory'])->name('production.stock.inventory');
         });
@@ -50,7 +51,8 @@ Route::middleware(['auth'])->group(function () {
 
     Route::resource('product', ProductController::class);
     Route::resource('category', CategoryController::class);
+    Route::resource('order', OrderController::class);
+    Route::post('/next_step_order/{id}', [OrderController::class, 'next_step_order']);
     Route::resource('stock_movement', StockMovementController::class);
 });
 Route::get('lang/change', [LangController::class, 'change'])->name('changeLang');
-

@@ -3,10 +3,10 @@
 namespace App\Http\Controllers\Production;
 
 use App\Http\Controllers\Controller;
-use App\Models\Category;
+use App\Models\Order;
 use Illuminate\Http\Request;
 
-class CategoryController extends Controller
+class OrderController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -15,8 +15,7 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        $categories = Category::all();
-        return response()->view('production.crud.category', compact('categories'));
+        //
     }
 
     /**
@@ -37,28 +36,7 @@ class CategoryController extends Controller
      */
     public function store(Request $request)
     {
-        try {
-            if (
-                empty($request->code) ||
-                empty($request->designation)
-            ) {
-            dd($request);
-                toastr()->error('Message', 'Veuillez remplir tous les champs obligatoires');
-                return redirect()->back();
-            }
-
-            $category = new Category();
-            $category->code = $request->code;
-            $category->designation = $request->designation;
-            $category->save();
-
-            toastr()->success('Message', 'La categorie a bien ete ajoute');
-            return redirect()->back();
-
-        }catch (\Exception $e) {
-            toastr()->error('Message', 'Une Erreur c\'est produite');
-            return redirect()->back();
-        }
+        //
     }
 
     /**
@@ -70,7 +48,7 @@ class CategoryController extends Controller
     public function show($id)
     {
         try{
-            $check = Category::where('id', $id)->first();
+            $check = Order::where('id', $id)->first();
             if($check){
                 return response()->json($check);
             }else{
@@ -103,24 +81,21 @@ class CategoryController extends Controller
     {
         try {
             if (
-                empty($request->code) ||
-                empty($request->designation) 
+                empty($request->order_stock) 
             ) {
                 toastr()->error('Message', 'Veuillez remplir tous les champs obligatoires');
                 return redirect()->back();
             }
 
+            $order = Order::find($id);
+            $order->order_stock = $request->order_stock;
+            $order->save();
 
-            $category = Category::where('id', $id)->first();
-            $category->code = $request->code;
-            $category->designation = $request->designation;
-            $category->save();
-
-            toastr()->success('Message', "La categorie a bien ete modifie");
+            toastr()->success('Modification de la commande reussite !!');
             return redirect()->back();
 
-        } catch (\Exception $e) {
-            toastr()->error('Message',"Une Erreur c'est produite");
+        }catch (\Exception $e) {
+            toastr()->error('Message', 'Une Erreur c\'est produite');
             return redirect()->back();
         }
     }
@@ -134,10 +109,40 @@ class CategoryController extends Controller
     public function destroy($id)
     {
         try {
-            $category = Category::where('id', $id)->first();
-            if ($category) {
-                $category->delete();
+            $order = Order::where('id', $id)->first();
+            if ($order) {
+                $order->delete();
                 return response()->json('ok');
+            } else {
+                return response()->json('off');
+            }
+        } catch (\Exception $e) {
+            return response()->json('off');
+        }
+    }
+
+    public function next_step_order($id)
+    {
+        try {
+            $order = Order::where('id', $id)->first();
+            if ($order) {
+                $status = $order->status;
+                switch ($status) {
+                    case "potential":
+                        $order->status = "transmitted";
+                        break;
+                    case "transmitted":
+                        $order->status = "in_progress";
+                        break;
+                    case "in_progress":
+                        $order->status = "valide";
+                        break;
+                    default:
+                        return response()->json('off');     
+                }
+                $order->save();
+                return response()->json('ok');
+
             } else {
                 return response()->json('off');
             }
