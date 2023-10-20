@@ -4,14 +4,14 @@
         <aside id="sidebar-wrapper">
             <div class="sidebar-brand">
                 <a href="/"> <img alt="image" src="{{ asset('assets/img/logo.png') }}" class="header-logo" />
-                    <span class="logo-name">Guemaleu</span>
+                    <span class="logo-name">Ranch Management</span>
                 </a>
             </div>
             <ul class="sidebar-menu">
-                @if (Request::is('production/stock*') == true)
+                @if (Request::is('production/stock*') == true || Request::is('product') == true || Request::is('category') == true)
                     <li class="dropdown">
                     <li class="menu-header">Stock</li>
-                    <li class="dropdown {{ Request::is('production/stock') ? 'active' : '' }}">
+                    <li class="dropdown {{ Request::is('production/stock') ? 'active' : '' }} {{ Request::is('product') ? 'active' : '' }}  {{ Request::is('category') ? 'active' : '' }}">
                         <a href="{{ route('production.stock.index') }}" class="nav-link"><i
                                 data-feather="monitor"></i><span>Tableau De Bord</span></a>
                     </li>
@@ -31,6 +31,10 @@
                                 <li class="{{ Request::is('production/stock/order') ? 'active' : '' }}"><a class="nav-link" href="{{ route('production.stock.order.index') }}">Tableau de bord</a>
                                 </li>
                             </ul>
+                        </li>
+                        <li class="dropdown {{ Request::is('production/stock/inventory') ? 'active' : '' }}">
+                            <a href="{{ route('production.stock.inventory') }}" class="nav-link"><i
+                                    data-feather="monitor"></i><span>Inventaire</span></a>
                         </li>
                     </ul>
                     </li>

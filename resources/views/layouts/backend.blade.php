@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, shrink-to-fit=no" name="viewport">
     <meta name="csrf-token" content="{{ csrf_token() }}">
-    <title>KITABU @yield('title')</title>
+    <title>Ranch Management @yield('title')</title>
     @yield('meta')
     <!-- General CSS Files -->
     <link rel="stylesheet" href="{{ asset('assets/css/app.min.css') }}">
@@ -41,7 +41,6 @@
 
     <!-- Custom style CSS -->
     <link rel="stylesheet" href="{{ asset('assets/css/custom.css') }}">
-    <link rel="stylesheet" href="{{ asset('toastr.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/km.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/other/calculator.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/filepond/dist/filepond.css') }}">
@@ -270,7 +269,7 @@
 
             <footer class="main-footer">
                 <div class="footer-left" style="">
-                    <a href="#">&copy; {{ __('message._copyrith_') }}</a>
+                    <a href="#">&copy; By Donald</a>
 
                 </div>
 
@@ -358,7 +357,6 @@
     <script src="{{ asset('assets/js/scripts.js') }}"></script>
     <!-- Custom JS File -->
     <script src="{{ asset('assets/js/custom.js') }}"></script>
-    <script src="{{ asset('toastr.js') }}"></script>
     <script src="{{ asset('assets/js/chat.js') }}"></script>
     <script src="{{ asset('assets/js/treeview.js') }}"></script>
     <!-- Template JS File -->

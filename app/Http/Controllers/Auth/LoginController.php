@@ -27,7 +27,7 @@ class LoginController extends Controller
                 
                 if (Auth::attempt($credentials)) {
                     $request->session()->regenerate();
-                    Toastr::success("messages",'connexion reussit');
+                    toastr()->success("messages",'connexion reussit');
                     return redirect()->route('home');
                 }
         
@@ -36,7 +36,7 @@ class LoginController extends Controller
                 return redirect()->route('home');
             } 
         }catch (\Exception $e){
-            Toastr::error("messages",'error');
+            toastr()->error("messages",'error');
         }          
     }
 
