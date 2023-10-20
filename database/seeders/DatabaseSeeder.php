@@ -2,8 +2,10 @@
 
 namespace Database\Seeders;
 
+use App\Models\Building;
 use App\Models\Category;
 use App\Models\Job;
+use App\Models\Lodge;
 use App\Models\Product;
 use App\Models\StockMovement;
 use Illuminate\Database\Seeder;
@@ -29,5 +31,7 @@ class DatabaseSeeder extends Seeder
         Category::factory()->count(5)->create();
         Product::factory()->count(5)->create();
         StockMovement::factory()->count(10)->create();
+        Building::factory()->count(3)->create();
+        Lodge::factory()->count(30)->create();
     }
 }
