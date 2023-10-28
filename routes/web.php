@@ -3,6 +3,7 @@
 use App\Http\Controllers\Accounting\AccountingController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\Auth\LoginController;
+use App\Http\Controllers\Configuration\ConfigurationController;
 use App\Http\Controllers\LangController;
 use App\Http\Controllers\Production\CategoryController;
 use App\Http\Controllers\Production\OrderController;
@@ -47,6 +48,11 @@ Route::middleware(['auth'])->group(function () {
             Route::get('/supply', [ProductionController::class, 'stock_supply_index'])->name('production.stock.supply.index');
             Route::get('/inventory', [ProductionController::class, 'stock_inventory'])->name('production.stock.inventory');
         });
+    });
+
+    Route::prefix('configuration')->group(function() {
+        Route::get('/', [ConfigurationController::class, 'index'])->name('configuration.index');
+        
     });
 
     Route::resource('product', ProductController::class);

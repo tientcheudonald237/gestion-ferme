@@ -112,7 +112,7 @@
               <div class="work-content">
                 <div class="row">
                   <div class="col-sm-8">
-                    <h2 class="w-title"><a href="#">Parametres et Configuration</a></h2>
+                    <h2 class="w-title"><a href="{{ route('configuration.index') }}">Parametres et Configuration</a></h2>
                   </div>
                 </div>
               </div>
