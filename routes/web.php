@@ -1,9 +1,11 @@
 <?php
 
 use App\Http\Controllers\Accounting\AccountingController;
+use App\Http\Controllers\Configuration\BuildingController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Configuration\ConfigurationController;
+use App\Http\Controllers\Configuration\LodgeController;
 use App\Http\Controllers\LangController;
 use App\Http\Controllers\Production\CategoryController;
 use App\Http\Controllers\Production\OrderController;
@@ -52,11 +54,13 @@ Route::middleware(['auth'])->group(function () {
 
     Route::prefix('configuration')->group(function() {
         Route::get('/', [ConfigurationController::class, 'index'])->name('configuration.index');
-        
+
     });
 
     Route::resource('product', ProductController::class);
     Route::resource('category', CategoryController::class);
+    Route::resource('lodge',LodgeController::class);
+    Route::resource('building',BuildingController::class);
     Route::resource('order', OrderController::class);
     Route::post('/next_step_order/{id}', [OrderController::class, 'next_step_order']);
     Route::resource('stock_movement', StockMovementController::class);

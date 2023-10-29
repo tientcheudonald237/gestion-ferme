@@ -1,4 +1,4 @@
-@extends('layouts.production')
+@extends('layouts.configuration')
 @section('styles')
 @endsection
 @section('content')
@@ -12,7 +12,7 @@
                     </li>
                     <li class="breadcrumb-item active"><a href="#"></i>Produits</a></li>
                 </ol>
-            </nav> 
+            </nav>
         </div>
         <div class="col-md-auto">
             <nav aria-label="breadcrumb">
