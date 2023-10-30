@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Production;
 
 use App\Http\Controllers\Controller;
 use App\Models\Follow;
+use App\Services\StockService;
 use Illuminate\Http\Request;
 
 class FollowController extends Controller
@@ -37,12 +38,12 @@ class FollowController extends Controller
     public function store(Request $request)
     {
         try {
-            // dd($request);
             if (
                 empty($request->designation) ||
                 empty($request->weight) ||
                 empty($request->sex) ||
-                empty($request->id_lodge) 
+                empty($request->id_lodge) ||
+                empty($request->id_product)
             ) {
                 toastr()->error('Message', 'Veuillez remplir tous les champs obligatoires');
                 return redirect()->back();
@@ -59,6 +60,7 @@ class FollowController extends Controller
             $animal->weight = $request->weight;
             $animal->sex = $request->sex;
             $animal->id_lodge = $request->id_lodge;
+            $animal->id_product = $request->id_product;
 
             if ($request->is_to_buy == 1) {
                 if (empty($request->buying_price)) {
@@ -79,6 +81,10 @@ class FollowController extends Controller
             }
 
             $animal->save();
+            
+            $stock_service = new StockService();
+            $stock_service->enter_from_stock($request->id_product,1,'',null,$request->buying_price ? $request->buying_price : '0');
+
             toastr()->success('L\'animal a bien été ajouté');
             return redirect()->back();
 

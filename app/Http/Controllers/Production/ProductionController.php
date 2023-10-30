@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Production;
 
 use App\Http\Controllers\Controller;
 use App\Models\Category;
+use App\Models\Follow;
 use App\Models\Lodge;
 use App\Models\Order;
 use App\Models\Product;
@@ -27,8 +28,8 @@ class ProductionController extends Controller
     }
 
     function stock_index(){
-        $products = Product::count(); 
-        $categories = Category::count();
+        $products = Product::no_animal_products()->count(); 
+        $categories = Category::no_animal_categories()->count();
         return view('production.stock.index', compact('products', 'categories'));
     }
 
@@ -48,25 +49,23 @@ class ProductionController extends Controller
 
     function stock_inventory(){
         $stock_movements = StockMovement::all();
-        $products = Product::all();
-        $product = Product::find(2);
+        $products = Product::no_animal_products()->get();
 
         return view('production.stock.inventory', compact('stock_movements', 'products'));
     }
 
     function give_birth(){
         $lodges = Lodge::all();
-        $animals = Product::select('products.*')
-            ->join('categories', 'categories.id', '=', 'products.id_category')
-            ->where('categories.code', 'animal')
-            ->get();
+        $parents = Follow::all();
+        $products = Product::animal_products()->get();
 
-        return view('production.follow.animal.give_birth', compact('lodges', 'animals'));
+        return view('production.follow.animal.give_birth', compact('lodges', 'parents', 'products'));
     }
 
     function acquire(){
         $lodges = Lodge::all();
+        $products = Product::animal_products()->get();
 
-        return view('production.follow.animal.acquire', compact('lodges'));
+        return view('production.follow.animal.acquire', compact('lodges', 'products'));
     }
 }

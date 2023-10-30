@@ -39,6 +39,15 @@
                         @csrf
                         @method('post')
                         <div class="form-group">
+                            <label for="id_product">Produit</label>
+                            <select name="id_product" id="id_product" class="form-control select2"
+                                placeholder="Selectionner le produit">
+                                @foreach ($products as $value)
+                                    <option value="{{ $value->id }}">{{ $value->code }}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                        <div class="form-group">
                             <label for="designation">Designation</label>
                             <input type="text" class="form-control" placeholder="Designation" name="designation" required
                                 id="designation">
@@ -58,8 +67,8 @@
                             <label for="id_parent">Parent</label>
                             <select name="id_parent" id="id_parent" class="form-control select2"
                                 placeholder="Selectionner son parent">
-                                @foreach ($animals as $value)
-                                    <option value="{{ $value->id }}">{{ $value->code }}</option>
+                                @foreach ($parents as $value)
+                                    <option value="{{ $value->id }}">{{ $value->designation }}</option>
                                 @endforeach
                             </select>
                         </div>

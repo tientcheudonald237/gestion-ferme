@@ -22,10 +22,13 @@ class CreateFollowsTable extends Migration
             $table->string('buying_price')->nullable();
             $table->unsignedBigInteger('id_parent')->nullable();
             $table->unsignedBigInteger('id_lodge');
+            $table->unsignedBigInteger('id_product');
             $table->timestamps();
             
-            $table->foreign('id_lodge')->references('id')->on('lodges')->onDelete('cascade')->onUpdate('cascade');
-            $table->foreign('id_parent')->references('id')->on('products')->onDelete('cascade')->onUpdate('cascade');
+            $table->foreign('id_lodge')->references('id')->on('lodges');
+            $table->foreign('id_product')->references('id')->on('products')->onDelete('cascade')->onUpdate('cascade');
+            $table->foreign('id_parent')->references('id')->on('follows');
+
         });
     }
 

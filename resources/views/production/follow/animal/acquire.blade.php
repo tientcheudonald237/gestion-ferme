@@ -34,6 +34,15 @@
                         @csrf
                         @method('post')
                         <div class="form-group">
+                            <label for="id_product">Produit</label>
+                            <select name="id_product" id="id_product" class="form-control select2"
+                                placeholder="Selectionner le produit">
+                                @foreach ($products as $value)
+                                    <option value="{{ $value->id }}">{{ $value->code }}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                        <div class="form-group">
                             <label for="designation">Designation</label>
                             <input type="text" class="form-control" placeholder="Designation" name="designation" required
                                 id="designation">

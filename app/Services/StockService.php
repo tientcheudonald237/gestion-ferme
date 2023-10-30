@@ -9,19 +9,19 @@ use Illuminate\Http\Request;
 
 class StockService
 {
-    public function out_of_stock($request)
+    public function out_of_stock($id_product,$quantity,$observation)
     {
         $stock_movement = new StockMovement();
         // $stock_movement->bill_number = $request->bill_number;
-        $stock_movement->id_product = $request->id_product;
-        $stock_movement->quantity = $request->quantity;
+        $stock_movement->id_product = $id_product;
+        $stock_movement->quantity = $quantity;
         // $stock_movement->unit_acquisition_price = $request->unit_acquisition_price;
-        $stock_movement->observation = $request->observation ? $request->observation : '';  
+        $stock_movement->observation = $observation ? $observation : '';  
         $stock_movement->type = 'out';
         $stock_movement->save();
         
-        $product = Product::find($request->id_product);
-        $product->stock -= $request->quantity;
+        $product = Product::find($id_product);
+        $product->stock -= $quantity;
         $product->save();
 
         if( $product->stock <= $product->alert_stock ){
@@ -37,19 +37,19 @@ class StockService
         }
     }
 
-    public function enter_from_stock(Request $request)
+    public function     enter_from_stock($id_product,$quantity,$observation,$bill_number,$unit_acquisition_price)
     {
         $stock_movement = new StockMovement();
-        $stock_movement->bill_number = $request->bill_number;
-        $stock_movement->id_product = $request->id_product;
-        $stock_movement->quantity = $request->quantity;
-        $stock_movement->unit_acquisition_price = $request->unit_acquisition_price;
-        $stock_movement->observation = $request->observation ? $request->observation : '';
+        $stock_movement->bill_number = $bill_number;
+        $stock_movement->id_product = $id_product;
+        $stock_movement->quantity = $quantity;
+        $stock_movement->unit_acquisition_price = $unit_acquisition_price;
+        $stock_movement->observation = $observation ? $observation : '';
         $stock_movement->type = 'entry';
         $stock_movement->save();
 
-        $product = Product::find($request->id_product);
-        $product->stock += $request->quantity;
+        $product = Product::find($id_product);
+        $product->stock += $quantity;
         $product->save(); 
     }
 }

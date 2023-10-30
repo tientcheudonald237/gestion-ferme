@@ -15,7 +15,7 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        $categories = Category::all();
+        $categories = Category::no_animal_categories()->get();
         return response()->view('production.crud.category', compact('categories'));
     }
 

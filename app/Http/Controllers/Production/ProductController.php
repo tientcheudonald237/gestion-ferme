@@ -121,7 +121,7 @@ class ProductController extends Controller
             }
 
 
-            $product = Product::where('id', $id)->first();
+            $product = Product::no_animal_products()->where('id', $id)->first();
             $product->code = $request->code;
             $product->designation = $request->designation;
             $product->id_category = $request->id_category;

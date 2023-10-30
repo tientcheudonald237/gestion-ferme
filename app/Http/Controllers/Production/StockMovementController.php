@@ -56,7 +56,13 @@ class StockMovementController extends Controller
                     return redirect()->back();
                 }
 
-                $stock_service->enter_from_stock($request);
+                $id_product = $request->id_product;
+                $quantity = $request->quantity;
+                $observation = $request->observation;
+                $unit_acquisition_price = $request->unit_acquisition_price;
+                $bill_number = $request->bill_number;
+
+                $stock_service->enter_from_stock($id_product,$quantity,$observation,$bill_number,$unit_acquisition_price);
                 if(!empty($request->id_order)){
                     $order = Order::find($request->id_order);
                     if($order){
@@ -74,13 +80,18 @@ class StockMovementController extends Controller
                     toastr()->error('Message', 'Veuillez remplir tous les champs obligatoires');
                     return redirect()->back();
                 }
+
+                $id_product = $request->id_product;
+                $quantity = $request->quantity;
+                $observation = $request->observation;
+
                 $product = Product::find($request->id_product);
-                // dd($request->quantity . "   " . $product->stock);
+
                 if ($request->quantity > $product->stock) {
                     toastr()->warning('Message', 'vous ne pouvez pas retirer moins que la quantite actuelle !!');
                     return redirect()->back();
                 }
-                $stock_service->out_of_stock($request);
+                $stock_service->out_of_stock($id_product,$quantity,$observation);
             }
 
             toastr()->success('Message', 'Le Nouveau stock a ete ajoute avec succès');
