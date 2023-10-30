@@ -8,6 +8,7 @@
                     Principale</a></li>
             <li class="breadcrumb-item"><a href="{{ route('production.index') }}">Production</a>
             </li>
+            <li class="breadcrumb-item"><a href="#">Suivi</a></li>
             <li class="breadcrumb-item active"><a href="{{ route('production.follow.animal') }}"></i>Animaux</a></li>
         </ol>
     </nav>

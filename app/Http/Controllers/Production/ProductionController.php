@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Production;
 
 use App\Http\Controllers\Controller;
 use App\Models\Category;
+use App\Models\Lodge;
 use App\Models\Order;
 use App\Models\Product;
 use App\Models\StockMovement;
@@ -15,7 +16,7 @@ class ProductionController extends Controller
         return view('production.index');
     }
     function follow_animal(){
-        return view('production.follow.animal');
+        return view('production.follow.animal.index');
     }
     function follow_food(){
         return view('production.follow.food');
@@ -51,5 +52,21 @@ class ProductionController extends Controller
         $product = Product::find(2);
 
         return view('production.stock.inventory', compact('stock_movements', 'products'));
+    }
+
+    function give_birth(){
+        $lodges = Lodge::all();
+        $animals = Product::select('products.*')
+            ->join('categories', 'categories.id', '=', 'products.id_category')
+            ->where('categories.code', 'animal')
+            ->get();
+
+        return view('production.follow.animal.give_birth', compact('lodges', 'animals'));
+    }
+
+    function acquire(){
+        $lodges = Lodge::all();
+
+        return view('production.follow.animal.acquire', compact('lodges'));
     }
 }

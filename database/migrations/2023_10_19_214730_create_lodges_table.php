@@ -15,7 +15,7 @@ class CreateLodgesTable extends Migration
     {
         Schema::create('lodges', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
+            $table->string('name')->unique();
             $table->integer('maximum_number');
             $table->string('position_description');
             $table->unsignedBigInteger('id_building');

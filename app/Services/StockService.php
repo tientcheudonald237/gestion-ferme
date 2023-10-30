@@ -51,7 +51,5 @@ class StockService
         $product = Product::find($request->id_product);
         $product->stock += $request->quantity;
         $product->save(); 
-
-
     }
 }

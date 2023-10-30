@@ -15,15 +15,17 @@ class CreateFollowsTable extends Migration
     {
         Schema::create('follows', function (Blueprint $table) {
             $table->id();
-            $table->string('designation');
+            $table->string('designation')->unique();
             $table->integer('weight');
             $table->enum('sex', ['male','female']);
             $table->enum('is_to_buy', [0,1]);
-            $table->string('buying price');
+            $table->string('buying price')->nullable();
+            $table->unsignedBigInteger('id_parent');
             $table->unsignedBigInteger('id_lodge');
             $table->timestamps();
-        
+            
             $table->foreign('id_lodge')->references('id')->on('lodges')->onDelete('cascade')->onUpdate('cascade');
+            $table->foreign('id_parent')->references('id')->on('products')->onDelete('cascade')->onUpdate('cascade');
         });
     }
 

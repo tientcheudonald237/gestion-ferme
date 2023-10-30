@@ -38,7 +38,11 @@ Route::middleware(['auth'])->group(function () {
     Route::prefix('production')->group(function() {
         Route::get('/', [ProductionController::class, 'index'])->name('production.index');
         Route::prefix('follow')->group(function(){
-            Route::get('/animal', [ProductionController::class, 'follow_animal'])->name('production.follow.animal');
+            Route::prefix('animal')->group(function(){
+                Route::get('/', [ProductionController::class, 'follow_animal'])->name('production.follow.animal');
+                Route::get('/give_birth', [ProductionController::class, 'give_birth'])->name('production.follow.animal.give_birth');
+                Route::get('/acquire', [ProductionController::class, 'acquire'])->name('production.follow.animal.acquire');
+            });
             Route::get('/food', [ProductionController::class, 'follow_food'])->name('production.follow.food');
             Route::get('/prophylaxis', [ProductionController::class, 'follow_prophylaxis'])->name('production.follow.prophylaxis');
         });
@@ -52,7 +56,7 @@ Route::middleware(['auth'])->group(function () {
 
     Route::prefix('configuration')->group(function() {
         Route::get('/', [ConfigurationController::class, 'index'])->name('configuration.index');
-        
+
     });
 
     Route::resource('product', ProductController::class);
