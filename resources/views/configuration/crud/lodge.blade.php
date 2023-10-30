@@ -8,16 +8,16 @@
                 <ol class="breadcrumb bg-primary text-white-all">
                     <li class="breadcrumb-item"><a href="{{ route('home') }}">Menu
                             Principale</a></li>
-                    <li class="breadcrumb-item"><a href="{{ route('production.stock.index') }}">Production</a>
+                    <li class="breadcrumb-item"><a href="{{ route('configuration.index') }}">Production</a>
                     </li>
-                    <li class="breadcrumb-item active"><a href="#"></i>Produits</a></li>
+                    <li class="breadcrumb-item active"><a href="#"></i>Loges</a></li>
                 </ol>
             </nav>
         </div>
         <div class="col-md-auto">
             <nav aria-label="breadcrumb">
                 <a class="btn btn-success btn-pilll " data-toggle="modal" data-target="#addproduct" href="">
-                    Ajouter un Prodiut
+                    Ajouter une loge
                 </a>
             </nav>
         </div>
@@ -27,7 +27,7 @@
             <div class="col-12 col-md-12 col-lg-12">
                 <div class="card">
                     <div class="card-header">
-                        <h4>Liste des Produits</h4>
+                        <h4>Liste des loges</h4>
                     </div>
                     <div class="card-body">
                         <div class="table-responsive">
@@ -35,27 +35,27 @@
                                 <thead>
                                     <tr>
                                         <th>#</th>
-                                        <th>Code</th>
-                                        <th>Designation</th>
-                                        <th>Categorie</th>
-                                        <th>Unite</th>
-                                        <th>Date Creation</th>
+                                        <th>Nom</th>
+                                        <th>Nombre maximal</th>
+                                        <th>Descripton de la positon</th>
+                                        <th>Nom du batiment</th>
+                                        <th>Date de creation</th>
                                         <th>Action</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @foreach ($products as $index => $value)
+                                    @foreach ($lodges as $index => $value)
                                         <tr>
                                             <td>{{ $index + 1 }}</td>
-                                            <td>{{ $value->code }}</td>
-                                            <td>{{ $value->designation }}</td>
+                                            <td>{{ $value->name }}</td>
+                                            <td>{{ $value->maximal_number }}</td>
+                                            <td>{{ $value->position_description }}</td>
                                             <td>
                                                 @php
-                                                    $category = App\Models\Category::where('id', $value->id_category)->first();
-                                                    echo $category->code;
+                                                    $building = App\Models\Building::where('id', $value->id_building)->first();
+                                                    echo $building->name;
                                                 @endphp
                                             </td>
-                                            <td>{{ $value->unit }}</td>
                                             <td>{{ date('d-m-y H:i A', strtotime($value->created_at)) }}</td>
                                             <td>
                                                 <a class="btn btn-primary btn-action mr-1" onclick="edit_product({{ $value->id }});" title="Edit"><i class="fas fa-pencil-alt"></i></a>
@@ -75,43 +75,39 @@
         <div class="modal-dialog modal-lg">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="">Ajouter un produit</h5>
+                    <h5 class="modal-title" id="">Ajouter une loge</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
                 <div class="modal-body">
-                    <form action="{{ route('product.store') }}" method="post">
+                    <form action="{{ route('lodge.store') }}" method="post">
                         @csrf
                         @method('POST')
                         <div class="form-group">
-                            <label for="code">Code</label>
-                            <input type="text" class="form-control" placeholder="Code du produit" name="code"
+                            <label for="name">Nom</label>
+                            <input type="text" class="form-control" placeholder="Nom de la loge" name="name"
                                 required>
                         </div>
                         <div class="form-group">
-                            <label for="designation">Designation</label>
-                            <input type="text" class="form-control" placeholder="Designatoin du produit"
-                                name="designation" required>
+                            <label for="number">Nombre maximum</label>
+                            <input type="number" class="form-control" placeholder="Nombe maximal"
+                                name="number" required>
+
+                        <div class="form-group">
+                            <label for="position_description">Description de la position</label>
+                            <input type="text" class="form-control" placeholder="Description de la position" name="position_description">
+
+
                         </div>
                         <div class="form-group">
-                            <label for="id_category">Categorie</label>
-                            <select name="id_category" class="form-control" required>
-                                <option value="choisissez la ategory"></option>
-                                @foreach ($categories as $value )
-                                    <option value="{{ $value->id }}"> {{ $value->code }} {{ $value->designation }}</option>
+                            <label for="buildings">batiments</label>
+                            <select name="buildings" class="form-control" required>
+                                <option value="choisissez le batiment"></option>
+                                @foreach ($buildings as $value )
+                                    <option value="{{ $value->id }}"> {{ $value->name }} </option>
                                 @endforeach
                             </select>
-                        </div>
-                        <div class="form-group">
-                            <label for="unit">Unite</label>
-                            <input type="text" class="form-control" placeholder="Unite du produit"
-                                name="unit" required >
-                        </div>
-                        <div class="form-group">
-                            <label for="alert_stock">Stock d'Alert minimum</label>
-                            <input type="number" class="form-control" min="1" placeholder="Stock d'Alert minimum"
-                                name="alert_stock" required>
                         </div>
                         <button class="btn btn-success btn-block" type="submit">valider</button>
                     </form>
@@ -123,7 +119,7 @@
         <div class="modal-dialog modal-lg">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="">Editer un Produit</h5>
+                    <h5 class="modal-title" id="">Editer une loge</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
@@ -133,33 +129,28 @@
                         @csrf
                         @method('PUT')
                         <div class="form-group">
-                            <label for="code">Code</label>
-                            <input type="text" class="form-control" placeholder="Code du produit" name="code"
-                                required id="code">
+                            <label for="name">Name</label>
+                            <input type="text" class="form-control" placeholder="Nom de la loge" name="name"
+                                required id="name">
                         </div>
                         <div class="form-group">
-                            <label for="designation">Designation</label>
-                            <input type="text" class="form-control" placeholder="Designatoin du produit"
-                                name="designation" required id="designation">
+                            <label for="maximal_number">Nombre maximal</label>
+                            <input type="number" class="form-control" placeholder="Nombre maximal"
+                                name="maximal_number" required id="maximal_number">
                         </div>
                         <div class="form-group">
-                            <label for="id_category">Categorie</label>
-                            <select name="id_category" class="form-control" required id="id_category" required>
-                                <option value="choisissez la ategory"></option>
-                                @foreach ($categories as $value )
-                                    <option value="{{ $value->id }}"> {{ $value->code }} {{ $value->designation }}</option>
+                            <label for="position_description">Description de la position</label>
+                            <input type="text" class="form-control" placeholder="Description de la position" name="position_description"
+                                required id="position_description">
+
+                        <div class="form-group">
+                            <label for="buildings">batiments</label>
+                            <select name="buildings" class="form-control" required>
+                                <option value="choisissez le batiment"></option>
+                                @foreach ($buildings as $value )
+                                    <option value="{{ $value->id }}"> {{ $value->name }} </option>
                                 @endforeach
                             </select>
-                        </div>
-                        <div class="form-group">
-                            <label for="unit">Unite</label>
-                            <input type="text" class="form-control" placeholder="Unite du produit"
-                                name="unit" required id="unit">
-                        </div>
-                        <div class="form-group">
-                            <label for="alert_stock">Stock d'Alert minimum</label>
-                            <input type="number" class="form-control" placeholder="Stock d'Alert minimum"
-                                name="alert_stock" min="1" required id="alert_stock">
                         </div>
                         <button class="btn btn-success btn-block" type="submit">valider</button>
                     </form>
@@ -170,7 +161,7 @@
 @endsection
 @push('other-scripts')
     <script type="text/javascript">
-        function edit_product(id) {
+        function edit_lodge(id) {
             var de = document.getElementById('form_update_product')
             de.setAttribute('action', '/product/' + id);
             var urls = "/product/" + id;
@@ -196,7 +187,7 @@
             $('#editproduct').modal('show');
         }
 
-        function delete_product(id) {
+        function delete_lodge(id) {
             swal({
                     title: 'Suppression',
                     text: 'Voulez vous vraiment supprimer ??',

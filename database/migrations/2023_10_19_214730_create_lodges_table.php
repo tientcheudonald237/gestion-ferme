@@ -17,7 +17,7 @@ class CreateLodgesTable extends Migration
             $table->id();
             $table->string('name');
             $table->integer('maximum_number');
-            $table->string('position_description');
+            $table->string('position_description')->nullable();
             $table->unsignedBigInteger('id_building');
             $table->timestamps();
 

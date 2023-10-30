@@ -59,7 +59,7 @@ Route::middleware(['auth'])->group(function () {
 
     Route::resource('product', ProductController::class);
     Route::resource('category', CategoryController::class);
-    Route::resource('lodge',LodgeController::class);
+    Route::resource('lodge', LodgeController::class);
     Route::resource('building',BuildingController::class);
     Route::resource('order', OrderController::class);
     Route::post('/next_step_order/{id}', [OrderController::class, 'next_step_order']);

@@ -19,6 +19,8 @@ class BuildingController extends Controller
         return view('configuration/crud/building',compact('buildings'));
     }
 
+    
+
     /**
      * Show the form for creating a new resource.
      *
