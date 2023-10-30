@@ -6,6 +6,7 @@ use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Configuration\ConfigurationController;
 use App\Http\Controllers\LangController;
 use App\Http\Controllers\Production\CategoryController;
+use App\Http\Controllers\Production\FollowController;
 use App\Http\Controllers\Production\OrderController;
 use App\Http\Controllers\Production\ProductController;
 use App\Http\Controllers\Production\ProductionController;
@@ -64,5 +65,6 @@ Route::middleware(['auth'])->group(function () {
     Route::resource('order', OrderController::class);
     Route::post('/next_step_order/{id}', [OrderController::class, 'next_step_order']);
     Route::resource('stock_movement', StockMovementController::class);
+    Route::resource('follow', FollowController::class);
 });
 Route::get('lang/change', [LangController::class, 'change'])->name('changeLang');

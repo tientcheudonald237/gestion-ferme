@@ -19,8 +19,8 @@ class CreateFollowsTable extends Migration
             $table->integer('weight');
             $table->enum('sex', ['male','female']);
             $table->enum('is_to_buy', [0,1]);
-            $table->string('buying price')->nullable();
-            $table->unsignedBigInteger('id_parent');
+            $table->string('buying_price')->nullable();
+            $table->unsignedBigInteger('id_parent')->nullable();
             $table->unsignedBigInteger('id_lodge');
             $table->timestamps();
             

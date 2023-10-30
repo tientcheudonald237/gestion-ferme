@@ -33,9 +33,11 @@
             <div class="card">
                 <div class="card-header">
                     <h4>Suivre un animal</h4>
-                </div>
+                </div>  
                 <div class="card-body">
-                    <form>
+                    <form action="{{ route('follow.store') }}" method="post">
+                        @csrf
+                        @method('post')
                         <div class="form-group">
                             <label for="designation">Designation</label>
                             <input type="text" class="form-control" placeholder="Designation" name="designation" required

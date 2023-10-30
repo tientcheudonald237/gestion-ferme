@@ -30,7 +30,9 @@
                     <h4>Suivre un animal</h4>
                 </div>
                 <div class="card-body">
-                    <form>
+                    <form action="{{ route('follow.store') }}" method="post">
+                        @csrf
+                        @method('post')
                         <div class="form-group">
                             <label for="designation">Designation</label>
                             <input type="text" class="form-control" placeholder="Designation" name="designation" required
@@ -55,8 +57,8 @@
                         </div>
                         <div class="form-group">
                             <label for="id_lodge">Loge</label>
-                            <select class="form-control select2 " placeholder="Selectionner la loge" name="id_lodge" required
-                                id="id_lodge">
+                            <select class="form-control select2 " placeholder="Selectionner la loge" name="id_lodge"
+                                required id="id_lodge">
                                 @foreach ($lodges as $value)
                                     <option value="{{ $value->id }}">{{ $value->name }}</option>
                                 @endforeach
