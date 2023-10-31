@@ -19,9 +19,9 @@
                         <div class="padding-20">
                             <div class="text-right">
                                 <h3 class="font-light mb-0">
-                                    {{-- <i class="ti-arrow-up text-success"></i> {{ $products }} --}}
+                                    <i class="ti-arrow-up text-success"></i> {{ $lodges }}
                                 </h3>
-                                <a href="{{ route('product.index') }}"
+                                <a href="{{ route('lodge.index') }}"
                                     class="text-muted font-weight-bold font-25">Loges</a>
                             </div>
                         </div>
@@ -37,9 +37,9 @@
                         <div class="padding-20">
                             <div class="text-right">
                                 <h3 class="font-light mb-0">
-                                    {{-- <i class="ti-arrow-up text-success"></i> {{ $categories }} --}}
+                                    <i class="ti-arrow-up text-success"></i> {{ $buildings }}
                                 </h3>
-                                <a href="{{ route('category.index') }}"
+                                <a href="{{ route('building.index') }}"
                                     class="text-muted font-weight-bold font-25">Batiments</a>
                             </div>
                         </div>
