@@ -43,18 +43,19 @@ class LodgeController extends Controller
             if (
                 empty($request->name) ||
                 empty($request->maximum_number) ||
-                empty($request->position_description)
+                empty($request->id_building)
 
             ) {
                 toastr()->error('Message', 'Veuillez remplir tous les champs obligatoires');
                 return redirect()->back();
             }
 
-            $lodges = new Lodge();
-            $lodges->name = $request->name;
-            $lodges->maximum_number = $request->maxumum_number;
-            $lodges->position_description = $request->position_description;
-            $lodges->save();
+            $lodge = new Lodge();
+            $lodge->name = $request->name;
+            $lodge->maximum_number = $request->maximum_number;
+            $lodge->position_description = $request->position_description ? $request->position_description : ' ';
+            $lodge->id_building = $request->id_building;
+            $lodge->save();
             toastr()->success('La loge a bien ete ajoute');
             return redirect()->back();
 
@@ -107,21 +108,24 @@ class LodgeController extends Controller
     {
         try {
             if (
-                empty($request->name) ||
-                empty($request->maximum_number) ||
-                empty($request->position_description)
-
+                empty($request->input('name')) ||
+                empty($request->input('maximum_number')) ||
+                empty($request->input('id_building'))
             ) {
                 toastr()->error('Message', 'Veuillez remplir tous les champs obligatoires');
                 return redirect()->back();
             }
 
 
-            $lodges = Lodge::where('id', $id)->first();
-            $lodges->name = $request->name;
-            $lodges->maximum_number = $request->maximum_number;
-            $lodges->position_description = $request->position_description;
-            $lodges->save();
+            $lodge = Lodge::where('id', $id)->first();
+            if($lodge){
+                $lodge->name = $request->name;
+                $lodge->maximum_number = $request->maximum_number;
+                $lodge->position_description = $request->position_description ? $request->position_description : ' ';
+                $lodge->id_building = $request->id_building;
+                $lodge->save();
+            }
+            // dd(1);
 
             toastr()->success('Message', "Le produit a bien ete modifie");
             return redirect()->back();
@@ -141,9 +145,9 @@ class LodgeController extends Controller
     public function destroy($id)
     {
         try {
-            $lodges = Lodge::where('id', $id)->first();
-            if ($lodges) {
-                $lodges->delete();
+            $lodge = Lodge::where('id', $id)->first();
+            if ($lodge) {
+                $lodge->delete();
                 return response()->json('ok');
             } else {
                 return response()->json('off');

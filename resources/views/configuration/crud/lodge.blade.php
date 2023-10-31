@@ -16,7 +16,7 @@
         </div>
         <div class="col-md-auto">
             <nav aria-label="breadcrumb">
-                <a class="btn btn-success btn-pilll " data-toggle="modal" data-target="#addproduct" href="">
+                <a class="btn btn-success btn-pilll " data-toggle="modal" data-target="#addlodge" href="">
                     Ajouter une loge
                 </a>
             </nav>
@@ -48,7 +48,7 @@
                                         <tr>
                                             <td>{{ $index + 1 }}</td>
                                             <td>{{ $value->name }}</td>
-                                            <td>{{ $value->maximal_number }}</td>
+                                            <td>{{ $value->maximum_number }}</td>
                                             <td>{{ $value->position_description }}</td>
                                             <td>
                                                 @php
@@ -58,8 +58,12 @@
                                             </td>
                                             <td>{{ date('d-m-y H:i A', strtotime($value->created_at)) }}</td>
                                             <td>
-                                                <a class="btn btn-primary btn-action mr-1" onclick="edit_product({{ $value->id }});" title="Edit"><i class="fas fa-pencil-alt"></i></a>
-                                                <a class="btn btn-danger btn-action" title="Delete" onclick="event.preventDefault();delete_product({{ $value->id }});"><i class="fas fa-trash"></i></a>
+                                                <a class="btn btn-primary btn-action mr-1"
+                                                    onclick="edit_lodge({{ $value->id }});" title="Edit"><i
+                                                        class="fas fa-pencil-alt"></i></a>
+                                                <a class="btn btn-danger btn-action" title="Delete"
+                                                    onclick="event.preventDefault();delete_lodge({{ $value->id }});"><i
+                                                        class="fas fa-trash"></i></a>
                                             </td>
                                         </tr>
                                     @endforeach
@@ -71,7 +75,7 @@
             </div>
         </div>
     </div>
-    <div class="modal fade" id="addproduct" tabindex="-1" role="dialog" aria-labelledby="" aria-hidden="true">
+    <div class="modal fade" id="addlodge" tabindex="-1" role="dialog" aria-labelledby="" aria-hidden="true">
         <div class="modal-dialog modal-lg">
             <div class="modal-content">
                 <div class="modal-header">
@@ -86,28 +90,25 @@
                         @method('POST')
                         <div class="form-group">
                             <label for="name">Nom</label>
-                            <input type="text" class="form-control" placeholder="Nom de la loge" name="name"
-                                required>
+                            <input type="text" class="form-control" placeholder="Nom de la loge" name="name" required>
                         </div>
                         <div class="form-group">
-                            <label for="number">Nombre maximum</label>
-                            <input type="number" class="form-control" placeholder="Nombe maximal"
-                                name="number" required>
-
-                        <div class="form-group">
-                            <label for="position_description">Description de la position</label>
-                            <input type="text" class="form-control" placeholder="Description de la position" name="position_description">
-
-
-                        </div>
-                        <div class="form-group">
-                            <label for="buildings">batiments</label>
-                            <select name="buildings" class="form-control" required>
+                            <label for="id_building">batiments</label>
+                            <select name="id_building" class="form-control" required>
                                 <option value="choisissez le batiment"></option>
-                                @foreach ($buildings as $value )
+                                @foreach ($buildings as $value)
                                     <option value="{{ $value->id }}"> {{ $value->name }} </option>
                                 @endforeach
                             </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="maximum_number">Nombre maximum</label>
+                            <input type="number" class="form-control" placeholder="Nombe maximal" name="maximum_number" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="position_description">Description de la position</label>
+                            <input type="text" class="form-control" placeholder="Description de la position"
+                                name="position_description">
                         </div>
                         <button class="btn btn-success btn-block" type="submit">valider</button>
                     </form>
@@ -115,7 +116,7 @@
             </div>
         </div>
     </div>
-    <div class="modal fade" id="editproduct" tabindex="-1" role="dialog" aria-labelledby="" aria-hidden="true">
+    <div class="modal fade" id="editlodge" tabindex="-1" role="dialog" aria-labelledby="" aria-hidden="true">
         <div class="modal-dialog modal-lg">
             <div class="modal-content">
                 <div class="modal-header">
@@ -125,7 +126,7 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                    <form action="" method="post" id="form_update_product">
+                    <form action="" method="post" id="form_update_lodge">
                         @csrf
                         @method('PUT')
                         <div class="form-group">
@@ -134,25 +135,25 @@
                                 required id="name">
                         </div>
                         <div class="form-group">
-                            <label for="maximal_number">Nombre maximal</label>
+                            <label for="maximum_number">Nombre maximal</label>
                             <input type="number" class="form-control" placeholder="Nombre maximal"
-                                name="maximal_number" required id="maximal_number">
+                                name="maximum_number" required id="maximum_number">
                         </div>
                         <div class="form-group">
                             <label for="position_description">Description de la position</label>
-                            <input type="text" class="form-control" placeholder="Description de la position" name="position_description"
-                                required id="position_description">
+                            <input type="text" class="form-control" placeholder="Description de la position"
+                                name="position_description" id="position_description">
 
-                        <div class="form-group">
-                            <label for="buildings">batiments</label>
-                            <select name="buildings" class="form-control" required>
-                                <option value="choisissez le batiment"></option>
-                                @foreach ($buildings as $value )
-                                    <option value="{{ $value->id }}"> {{ $value->name }} </option>
-                                @endforeach
-                            </select>
-                        </div>
-                        <button class="btn btn-success btn-block" type="submit">valider</button>
+                            <div class="form-group">
+                                <label for="id_building">batiments</label>
+                                <select name="id_building" class="form-control" required id ="id_building">
+                                    <option value="choisissez le batiment"></option>
+                                    @foreach ($buildings as $value)
+                                        <option value="{{ $value->id }}"> {{ $value->name }} </option>
+                                    @endforeach
+                                </select>
+                            </div>
+                            <button class="btn btn-success btn-block" type="submit">valider</button>
                     </form>
                 </div>
             </div>
@@ -162,9 +163,9 @@
 @push('other-scripts')
     <script type="text/javascript">
         function edit_lodge(id) {
-            var de = document.getElementById('form_update_product')
-            de.setAttribute('action', '/product/' + id);
-            var urls = "/product/" + id;
+            var de = document.getElementById('form_update_lodge')
+            de.setAttribute('action', '/lodge/' + id);
+            var urls = "/lodge/" + id;
             $.ajax({
                 url: urls,
                 type: 'GET',
@@ -176,15 +177,14 @@
                     } else {
                         // console.log(data.code);
 
-                        $('#code').val(data.code);
-                        $('#designation').val(data.designation);
-                        $('#id_category').val(data.id_category);
-                        $('#unit').val(data.unit);
-                        $('#alert_stock').val(data.alert_stock);
+                        $('#name').val(data.name);
+                        $('#maximum_number').val(data.maximum_number);
+                        $('#position_description').val(data.position_description);
+                        $('#id_building').val(data.id_building);
                     }
                 }
             });
-            $('#editproduct').modal('show');
+            $('#editlodge').modal('show');
         }
 
         function delete_lodge(id) {
@@ -197,7 +197,7 @@
                 })
                 .then((willDelete) => {
                     if (willDelete) {
-                        var url = "/product/" + id;
+                        var url = "/lodge/" + id;
                         var xhr = new XMLHttpRequest();
                         xhr.open('DELETE', url);
                         xhr.setRequestHeader('X-CSRF-TOKEN', '{{ csrf_token() }}');
@@ -216,10 +216,10 @@
                                     });
                                     // location.reload();
                                 }
-                            }else{
+                            } else {
                                 swal('Une erreur est survenu  !!', {
-                                        icon: 'error',
-                                    });
+                                    icon: 'error',
+                                });
                             }
                         };
                         xhr.send();
