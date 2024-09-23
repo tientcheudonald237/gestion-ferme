@@ -30,7 +30,7 @@
   <header id="header" class="fixed-top">
     <div class="container d-flex align-items-center justify-content-between">
 
-      <h1 class="logo"><a href="index.html">Ranch Management</a></h1>
+      <h1 class="logo"><a href="index.html">AGRO-TECH FARM</a></h1>
       <!-- Uncomment below if you prefer to use an image logo -->
       <!-- <a href="index.html" class="logo"><img src="asset/img/logo.png" alt="" class="img-fluid"></a>-->
 
@@ -60,7 +60,7 @@
               <div class="work-content">
                 <div class="row">
                   <div class="col-sm-8">
-                    <h2 class="w-title"><a href="{{ route('production.index') }}">Gestion de la production</a></h2>
+                    <h2 class="w-title"><a href="{{ route('production.index') }}">Activites et services de la ferme</a></h2>
                   </div>
                 </div>
               </div>
@@ -86,7 +86,7 @@
               <div class="work-content">
                 <div class="row">
                   <div class="col-sm-8">
-                    <h2 class="w-title"><a href="{{ route('staff.index') }}">Gestion du personnel</a></h2>
+                    <h2 class="w-title"><a href="{{ route('staff.index') }}">Gestion des ressources humaines</a></h2>
                   </div>
                 </div>
               </div>
@@ -99,7 +99,7 @@
               <div class="work-content">
                 <div class="row">
                   <div class="col-sm-8">
-                    <h2 class="w-title"><a href="{{ route('accounting.index') }}">Gestion de la comptabilité</a></h2>
+                    <h2 class="w-title"><a href="{{ route('accounting.index') }}">Gestion du patrimoine</a></h2>
                   </div>
                 </div>
               </div>
